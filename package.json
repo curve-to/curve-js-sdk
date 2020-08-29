@@ -1,6 +1,6 @@
 {
   "name": "curve-js-sdk",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A companion JS SDK for curve ",
   "main": "dist/index.js",
   "scripts": {
