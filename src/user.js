@@ -2,7 +2,7 @@ import API from './api';
 
 /**
  * Convert input to string
- * @param {*} input 
+ * @param {*} input
  */
 const convertInput = (input) => {
   if (input == null) {
@@ -22,8 +22,9 @@ const convertInput = (input) => {
 class User {
   /**
    * static login method
-   * @param {string} username
-   * @param {string} password
+   * @param {String} username
+   * @param {String} password
+   * @return {Promise} response from server
    */
   static async login({ username, password }) {
     return await API.login({
@@ -34,9 +35,10 @@ class User {
 
   /**
    * static register method
-   * @param {string} username
-   * @param {string} password
-   * @param {string} email
+   * @param {String} username
+   * @param {String} password
+   * @param {String} email
+   * @return {Promise} response from server
    */
   static async register({ username, password, email }) {
     return await API.register({
@@ -48,9 +50,10 @@ class User {
 
   /**
    * static change password method
-   * @param {string} username
-   * @param {string} password new password to reset
-   * @param {string} email
+   * @param {String} username
+   * @param {String} password new password to reset
+   * @param {String} email
+   * @return {Promise} response from server
    */
   static async changePassword({ username, password, email }) {
     return await API.changePassword({
