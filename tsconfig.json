@@ -1,8 +1,0 @@
-{
-  "compilerOptions": {
-    "module": "es6",
-    "types": ["node"]
-  },
-  "include": ["src/*.ts"],
-  "exclude": ["./out.d.ts", "node_modules"]
-}
