@@ -2,6 +2,8 @@ import API from './api';
 
 /**
  * Collection class
+ * @memberof BaaS
+ * @public
  */
 class Collection {
   constructor(collectionName) {
@@ -66,7 +68,7 @@ class Collection {
   }
 
   /**
-   * Update a document from a collection
+   * Update a document of a collection
    * @param {String} documentId
    * @return {Promise}
    */

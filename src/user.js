@@ -18,6 +18,8 @@ const convertInput = (input) => {
 
 /**
  * User class
+ * @memberof BaaS
+ * @public
  */
 class User {
   /**
