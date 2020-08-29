@@ -1,5 +1,9 @@
 import API from './api';
 
+/**
+ * Convert input to string
+ * @param {*} input 
+ */
 const convertInput = (input) => {
   if (input == null) {
     return '';
