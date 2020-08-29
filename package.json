@@ -2,7 +2,7 @@
   "name": "curve-js-sdk",
   "version": "1.0.0",
   "description": "A companion JS SDK for curve ",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "start": "webpack --config webpack.config.js --watch",
     "build": "webpack --config webpack.config.js"
