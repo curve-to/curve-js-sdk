@@ -5,7 +5,8 @@
   "main": "dist/index.js",
   "scripts": {
     "start": "webpack --config webpack.config.js --watch",
-    "build": "webpack --config webpack.config.js"
+    "build": "webpack --config webpack.config.js",
+    "publish": "npm run build && npm publish"
   },
   "repository": {
     "type": "git",
