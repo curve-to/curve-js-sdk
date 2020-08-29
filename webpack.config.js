@@ -1,15 +1,26 @@
 module.exports = {
-  entry: './src/index.ts',
+  entry: './src/index.js',
   output: {
     filename: './index.js',
     library: 'curveJsSdk',
     libraryTarget: 'umd',
-    globalObject: 'this'
+    globalObject: 'this',
   },
   resolve: {
-    extensions: ['.ts', '.js'],
+    extensions: ['.js'],
   },
   module: {
-    rules: [{ test: /\.ts$/, loaders: 'ts-loader' }],
+    rules: [
+      {
+        test: /\.m?js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+          },
+        },
+      },
+    ],
   },
 };
