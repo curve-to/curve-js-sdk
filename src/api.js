@@ -15,11 +15,15 @@ export default {
   create: (params, data) => {
     return request.post({ url: '/collection/:collection', params, data });
   },
-  getCollection: (params) => {
-    return request.get({ url: '/collection/:collection', params });
+  getCollection: (params, data) => {
+    return request.get({ url: '/collection/:collection', params, data });
   },
-  getDocument: (params) => {
-    return request.get({ url: '/collection/:collection/:documentId', params });
+  getDocument: (params, data) => {
+    return request.get({
+      url: '/collection/:collection/:documentId',
+      params,
+      data,
+    });
   },
   update: (params, data) => {
     return request.put({
@@ -33,5 +37,8 @@ export default {
       url: '/collection/:collection/:documentId',
       params,
     });
+  },
+  count: (params) => {
+    return request.get({ url: '/collection/:collection/count', params });
   },
 };

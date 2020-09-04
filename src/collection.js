@@ -46,25 +46,34 @@ class Collection {
 
   /**
    * Get documents of a collection
+   * @param {Integer} pageSize
+   * @param {Integer} pageNo
+   * @param {string[]} exclude array of fields to be excluded
+   * @param {Integer} sortOrder order. 1: ascending, -1: descending
    * @return {Promise} documents of a collection
    */
-  async get() {
-    return await API.getCollection({ collection: this._collectionName });
+  async get({ pageSize = 20, pageNo = 1, exclude = [], sortOrder = -1 } = {}) {
+    const data = { pageSize, pageNo, exclude: exclude.join(), sortOrder };
+    return await API.getCollection({ collection: this._collectionName }, data);
   }
 
   /**
    * Get a document of a collection
    * @param {String} documentId
+   * @param {string[]} exclude array of fields to be excluded
    * @return {Promise} document details
    */
-  async getDocument(documentId) {
+  async getDocument(documentId, { exclude = [] } = {}) {
     if (!documentId) {
       throw new Error('Document id is required');
     }
-    return await API.getDocument({
-      collection: this._collectionName,
-      documentId,
-    });
+    return await API.getDocument(
+      {
+        collection: this._collectionName,
+        documentId,
+      },
+      { exclude: exclude.join() }
+    );
   }
 
   /**
@@ -99,6 +108,12 @@ class Collection {
     return await API.remove({
       collection: this._collectionName,
       documentId,
+    });
+  }
+
+  async count() {
+    return await API.count({
+      collection: this._collectionName,
     });
   }
 }
