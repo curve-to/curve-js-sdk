@@ -6,13 +6,13 @@ import API from './api';
  * @public
  */
 class Collection {
-  constructor(collectionName) {
-    this._collectionName = collectionName;
-    this._initDocument();
+  constructor(collection) {
+    this.collection = collection;
+    this.initDocument();
   }
 
-  _initDocument() {
-    this._document = {};
+  initDocument() {
+    this.document = {};
   }
 
   /**
@@ -25,8 +25,8 @@ class Collection {
       throw new Error('Invalid data type. Please provide an object');
     }
 
-    this._document = {
-      ...this._document,
+    this.document = {
+      ...this.document,
       ...data,
     };
 
@@ -38,10 +38,7 @@ class Collection {
    * @return {Promise} document info from server side
    */
   async create() {
-    return await API.create(
-      { collection: this._collectionName },
-      this._document
-    );
+    return await API.create({ collection: this.collection }, this.document);
   }
 
   /**
@@ -54,7 +51,7 @@ class Collection {
    */
   async get({ pageSize = 20, pageNo = 1, exclude = [], sortOrder = -1 } = {}) {
     const data = { pageSize, pageNo, exclude: exclude.join(), sortOrder };
-    return await API.getCollection({ collection: this._collectionName }, data);
+    return await API.getCollection({ collection: this.collection }, data);
   }
 
   /**
@@ -69,7 +66,7 @@ class Collection {
     }
     return await API.getDocument(
       {
-        collection: this._collectionName,
+        collection: this.collection,
         documentId,
       },
       { exclude: exclude.join() }
@@ -88,7 +85,7 @@ class Collection {
 
     return await API.update(
       {
-        collection: this._collectionName,
+        collection: this.collection,
         documentId,
       },
       data
@@ -106,14 +103,14 @@ class Collection {
     }
 
     return await API.remove({
-      collection: this._collectionName,
+      collection: this.collection,
       documentId,
     });
   }
 
   async count() {
     return await API.count({
-      collection: this._collectionName,
+      collection: this.collection,
     });
   }
 }
