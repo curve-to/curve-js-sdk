@@ -1,5 +1,5 @@
 import API from './api';
-import credential from './types/credential';
+import { credential } from './index';
 
 /**
  * User class

@@ -1,5 +1,5 @@
 import API from './api';
-import genericObject from './types/genericObject';
+import { genericObject } from './index';
 
 /**
  * Document class

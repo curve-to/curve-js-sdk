@@ -3,6 +3,16 @@ import User from './user';
 import Collection from './collection';
 import Document from './document';
 
+export type credential = {
+  username: string;
+  password: string;
+  email?: string;
+};
+
+export type genericObject = {
+  [key: string]: any;
+};
+
 /**
  * Define BaaS
  */
