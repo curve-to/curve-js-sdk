@@ -64,8 +64,8 @@ class Collection {
 
   /**
    * Remove a document from a collection
-   * @param {String} documentId
-   * @return {Promise}
+   * @param documentId
+   * @return ok
    */
   async remove(documentId: string): Promise<void> {
     return await API.remove({

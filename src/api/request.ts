@@ -1,9 +1,6 @@
 import axios from './interceptor';
 import config from '../config';
-
-type genericObject = {
-  [key: string]: any;
-};
+import genericObject from '../types/genericObject';
 
 const METHOD_TYPE = {
   GET: 'GET',

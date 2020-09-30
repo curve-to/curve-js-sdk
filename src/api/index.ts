@@ -1,8 +1,5 @@
 import request from './request';
-
-type genericObject = {
-  [key: string]: any;
-};
+import genericObject from '../types/genericObject';
 
 export default {
   // user related

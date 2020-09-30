@@ -1,4 +1,5 @@
 import API from './api';
+import genericObject from './types/genericObject';
 
 /**
  * Document class
@@ -8,7 +9,7 @@ import API from './api';
 class Document {
   private collection: string;
   private documentId: string;
-  private document: any;
+  private document: genericObject;
 
   constructor(collection: string, documentId?: string) {
     this.collection = collection;

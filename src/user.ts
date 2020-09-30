@@ -1,10 +1,5 @@
 import API from './api';
-
-type credential = {
-  username: string;
-  password: string;
-  email?: string;
-};
+import credential from './types/credential';
 
 /**
  * User class
