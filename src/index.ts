@@ -7,8 +7,8 @@ import Document from './document';
  * Define BaaS
  */
 const BaaS = {
-  init: ({ host = BaaS.config.HOST } = {}): void => {
-    BaaS.config.HOST = host;
+  init: ({ host = config.HOST } = {}): void => {
+    config.HOST = host;
   },
   config,
   User,
