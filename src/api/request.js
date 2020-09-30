@@ -1,5 +1,5 @@
 import axios from './interceptor';
-import BaaS from './baas';
+import BaaS from '../baas';
 
 const METHOD_TYPE = {
   GET: 'GET',
