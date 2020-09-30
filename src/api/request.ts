@@ -1,5 +1,9 @@
 import axios from './interceptor';
-import BaaS from '../baas';
+import config from '../config';
+
+type genericObject = {
+  [key: string]: any;
+};
 
 const METHOD_TYPE = {
   GET: 'GET',
@@ -11,15 +15,15 @@ const METHOD_TYPE = {
 /**
  * Convert API params
  * @private
- * @param  {String} url    API URL
- * @param  {Object} params API params
- * @return {String}        API URL formatted
+ * @param url API URL
+ * @param params API params
+ * @return API URL formatted
  */
-const format = (url, params) => {
+const format = (url: string, params: genericObject) => {
   params = params || {};
-  for (let key in params) {
-    let regForQueryString = new RegExp('(&?)' + key + '=:' + key, 'g');
-    let value = encodeURIComponent(params[key]);
+  for (const key in params) {
+    const regForQueryString = new RegExp('(&?)' + key + '=:' + key, 'g');
+    const value = encodeURIComponent(params[key]);
     if (value !== 'undefined') {
       url = url.replace(regForQueryString, function (match, p1) {
         return p1 + key + '=' + value;
@@ -28,7 +32,7 @@ const format = (url, params) => {
       url = url.replace(regForQueryString, '');
     }
 
-    let regForPathname = new RegExp(':' + key, 'g');
+    const regForPathname = new RegExp(':' + key, 'g');
     url = url.replace(regForPathname, encodeURIComponent(params[key]));
   }
   return url.replace(/([^:])\/\//g, (m, m1) => {
@@ -38,22 +42,22 @@ const format = (url, params) => {
 
 /**
  * Send requests to server side
- * @param {String} url api endpoint
- * @param {String} method method type
- * @param {Object} data data to pass as body
- * @param {Object} params params to replace in path
- * @return {Promise} response from server
+ * @param url api endpoint
+ * @param method method type
+ * @param data data to pass as body
+ * @param params params to replace in path
+ * @return response from server
  */
 const send = ({ url, method, params, data }) => {
   const body = method === 'GET' ? 'params' : 'data';
   return new Promise((resolve, reject) => {
     axios({
-      url: BaaS.config.HOST + format(url, params),
+      url: config.HOST + format(url, params),
       method,
       [body]: data,
     })
-      .then((res) => resolve(res))
-      .catch((err) => reject(err));
+      .then(res => resolve(res))
+      .catch(err => reject(err));
   });
 };
 
@@ -61,7 +65,7 @@ const send = ({ url, method, params, data }) => {
  * Create a request obj for get, post, put and delete functions to pass data
  * @return {Object} request object of functions
  */
-const request = () => {
+const request = (): genericObject => {
   const methods = ['get', 'post', 'put', 'delete'];
   const requestObj = methods.reduce((result, method) => {
     result[method] = ({ url, params = {}, data = {} }) =>

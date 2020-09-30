@@ -1,7 +1,7 @@
 module.exports = {
   mode: 'production',
   target: 'node',
-  entry: './src/index.js',
+  entry: './src/index.ts',
   output: {
     filename: './index.js',
     library: 'curveJsSdk',
@@ -9,7 +9,7 @@ module.exports = {
     globalObject: 'this',
   },
   resolve: {
-    extensions: ['.js'],
+    extensions: ['.js', '.ts'],
   },
   module: {
     rules: [
@@ -22,6 +22,11 @@ module.exports = {
             presets: ['@babel/preset-env'],
           },
         },
+      },
+      {
+        test: /\.ts?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
       },
     ],
   },

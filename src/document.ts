@@ -6,22 +6,26 @@ import API from './api';
  * @public
  */
 class Document {
-  constructor(collection, documentId) {
+  private collection: string;
+  private documentId: string;
+  private document: any;
+
+  constructor(collection: string, documentId?: string) {
     this.collection = collection;
     this.documentId = documentId;
-    this.initDocument();
+    this.init();
   }
 
-  initDocument() {
+  init(): void {
     this.document = {};
   }
 
   /**
    * Set data to document
-   * @param {Object} data
-   * @return {this}
+   * @param data
+   * @returns this
    */
-  set(data = {}) {
+  set(data = {}): Document {
     if (Object.prototype.toString.call(data) !== '[object Object]') {
       throw new Error('Invalid data type. Please provide an object');
     }
@@ -36,9 +40,9 @@ class Document {
 
   /**
    * Create a new document in a collection
-   * @return {Promise} document info from server side
+   * @returns document info from server side
    */
-  async save() {
+  async save(): Promise<void> {
     return await API.create({ collection: this.collection }, this.document);
   }
 
@@ -47,13 +51,9 @@ class Document {
    * @param {String} documentId
    * @return {Promise}
    */
-  async update() {
+  async update(): Promise<void> {
     if (!this.documentId) {
       throw new Error('Document id is required');
-    }
-
-    if (typeof this.documentId !== 'string') {
-      throw new Error('Document id must be string');
     }
 
     return await API.update(
