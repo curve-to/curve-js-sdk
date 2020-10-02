@@ -12,6 +12,7 @@ export default {
   changePassword: (data: genericObject): Promise<void> => {
     return request.put({ url: '/user/change', data });
   },
+
   // collection related
   create: (params: genericObject, data: genericObject): Promise<void> => {
     return request.post({ url: '/collection/:collection', params, data });

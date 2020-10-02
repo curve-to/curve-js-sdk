@@ -49,8 +49,8 @@ class Document {
 
   /**
    * Update a document of a collection
-   * @param {String} documentId
-   * @return {Promise}
+   * @param documentId
+   * @returns a promise
    */
   async update(): Promise<void> {
     if (!this.documentId) {

@@ -14,7 +14,7 @@ const METHOD_TYPE = {
  * @private
  * @param url API URL
  * @param params API params
- * @return API URL formatted
+ * @returns API URL formatted
  */
 const format = (url: string, params: genericObject) => {
   params = params || {};
@@ -43,7 +43,7 @@ const format = (url: string, params: genericObject) => {
  * @param method method type
  * @param data data to pass as body
  * @param params params to replace in path
- * @return response from server
+ * @returns response from server
  */
 const send = ({ url, method, params, data }) => {
   const body = method === 'GET' ? 'params' : 'data';
@@ -60,7 +60,7 @@ const send = ({ url, method, params, data }) => {
 
 /**
  * Create a request obj for get, post, put and delete functions to pass data
- * @return {Object} request object of functions
+ * @returns {Object} request object of functions
  */
 const request = (): genericObject => {
   const methods = ['get', 'post', 'put', 'delete'];

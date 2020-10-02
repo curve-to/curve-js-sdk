@@ -11,7 +11,7 @@ class User {
    * static login method
    * @param username
    * @param password
-   * @return response from server
+   * @returns response from server
    */
   static async login({ username, password }: credential): Promise<void> {
     return await API.login({ username, password });
@@ -37,7 +37,7 @@ class User {
    * @param username
    * @param password new password to reset
    * @param email
-   * @return response from server
+   * @returns response from server
    */
   static async changePassword({
     username,
