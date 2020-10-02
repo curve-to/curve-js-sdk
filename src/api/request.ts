@@ -60,7 +60,7 @@ const send = ({ url, method, params, data }) => {
 
 /**
  * Create a request obj for get, post, put and delete functions to pass data
- * @returns {Object} request object of functions
+ * @returns request object of functions
  */
 const request = (): genericObject => {
   const methods = ['get', 'post', 'put', 'delete'];

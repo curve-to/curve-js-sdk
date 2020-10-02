@@ -26,11 +26,7 @@ class Document {
    * @param data
    * @returns this
    */
-  set(data = {}): Document {
-    if (Object.prototype.toString.call(data) !== '[object Object]') {
-      throw new Error('Invalid data type. Please provide an object');
-    }
-
+  set(data: genericObject = {}): Document {
     this.document = {
       ...this.document,
       ...data,
@@ -49,7 +45,6 @@ class Document {
 
   /**
    * Update a document of a collection
-   * @param documentId
    * @returns a promise
    */
   async update(): Promise<void> {
