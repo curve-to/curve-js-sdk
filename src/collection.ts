@@ -15,6 +15,7 @@ class Collection {
 
   /**
    * Create an empty document
+   * @returns a new document with collection id
    */
   create(): Document {
     return new Document(this.collection);
@@ -23,6 +24,7 @@ class Collection {
   /**
    * Get a document without data
    * @param documentId
+   * @returns an empty document with collection id and document id
    */
   getWithoutData(documentId: string): Document {
     return new Document(this.collection, documentId);
@@ -34,7 +36,7 @@ class Collection {
    * @param pageNo
    * @param exclude array of fields to be excluded
    * @param sortOrder order. 1: ascending, -1: descending
-   * @return documents of a collection
+   * @returns documents of a collection
    */
   async find({
     pageSize = 20,
@@ -50,7 +52,7 @@ class Collection {
    * Get a document of a collection
    * @param documentId
    * @param exclude array of fields to be excluded
-   * @return document details
+   * @returns document details
    */
   async findOne(documentId: string, { exclude = [] } = {}): Promise<void> {
     return await API.getDocument(
@@ -65,7 +67,7 @@ class Collection {
   /**
    * Remove a document from a collection
    * @param documentId
-   * @return ok
+   * @returns ok
    */
   async remove(documentId: string): Promise<void> {
     return await API.remove({

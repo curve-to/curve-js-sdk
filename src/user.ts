@@ -21,7 +21,7 @@ class User {
    * @param username
    * @param password
    * @param email
-   * @return response from server
+   * @returns response from server
    */
   static async register({
     username,
