@@ -3,22 +3,16 @@ import User from './user';
 import Collection from './collection';
 import Document from './document';
 
-export type credential = {
-  username: string;
-  password: string;
-  email?: string;
-};
-
-export type genericObject = {
-  [key: string]: any;
-};
-
 /**
  * Define BaaS
  */
 const BaaS = {
-  init: ({ host = config.HOST } = {}): void => {
+  init: ({
+    host = config.HOST,
+    useWithMiniProgram = config.USE_WITH_MINI_PROGRAM,
+  } = {}): void => {
     config.HOST = host;
+    config.USE_WITH_MINI_PROGRAM = useWithMiniProgram;
   },
   config,
   User,

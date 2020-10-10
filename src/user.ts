@@ -1,5 +1,4 @@
 import API from './api';
-import { credential } from './index';
 
 /**
  * User class

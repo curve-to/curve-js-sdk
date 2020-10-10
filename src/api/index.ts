@@ -1,5 +1,4 @@
 import request from './request';
-import { genericObject } from '../index';
 
 export default {
   // user related
