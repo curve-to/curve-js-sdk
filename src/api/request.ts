@@ -65,15 +65,15 @@ const send = ({ url, method, params, data }) => {
  * @param params params to replace in path
  * @returns response from server
  */
-const sendWithMiniProgram = ({ url, method, params, data }) => {
+const sendViaMiniProgram = ({ url, method, params, data }) => {
   return new Promise((resolve, reject) => {
     wx.request({
       url: config.HOST + format(url, params),
       method,
       data,
-    })
-      .then(res => resolve(res.data))
-      .catch(err => reject(err));
+      success: (res: genericObject) => resolve(res.data),
+      fail: (err: genericObject) => reject(err),
+    });
   });
 };
 
@@ -85,16 +85,18 @@ const request = (): genericObject => {
   const methods = ['get', 'post', 'put', 'delete'];
   const requestObj = methods.reduce((result, method) => {
     result[method] = ({ url, params = {}, data = {} }) => {
+      const paramsToSend = {
+        url,
+        method: METHOD_TYPE[method.toUpperCase()],
+        params,
+        data,
+      };
+
       if (config.USE_WITH_MINI_PROGRAM) {
-        sendWithMiniProgram({
-          url,
-          method: METHOD_TYPE[method.toUpperCase()],
-          params,
-          data,
-        });
-      } else {
-        send({ url, method: METHOD_TYPE[method.toUpperCase()], params, data });
+        return sendViaMiniProgram(paramsToSend);
       }
+
+      return send(paramsToSend);
     };
     return result;
   }, {});
