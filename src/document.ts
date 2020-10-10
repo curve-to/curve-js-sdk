@@ -26,11 +26,7 @@ class Document {
    * @returns this
    */
   set(data: genericObject = {}): Document {
-    this.document = {
-      ...this.document,
-      ...data,
-    };
-
+    this.document = Object.assign(this.document, data);
     return this;
   }
 
