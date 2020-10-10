@@ -7,17 +7,20 @@ import Document from './document';
  * Define BaaS
  */
 const BaaS = {
-  init: ({
-    host = config.HOST,
-    useWithMiniProgram = config.USE_WITH_MINI_PROGRAM,
-  } = {}): void => {
+  init: ({ host = config.HOST } = {}): void => {
     config.HOST = host;
-    config.USE_WITH_MINI_PROGRAM = useWithMiniProgram;
   },
   config,
   User,
   Collection,
   Document,
 };
+
+/**
+ * Bind BaaS to wx if current environment is Mini Program
+ */
+if (config.USE_WITH_MINI_PROGRAM) {
+  wx.BaaS = BaaS;
+}
 
 export default BaaS;
