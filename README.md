@@ -25,5 +25,7 @@ npm run build
 ## Deploy to NPM
 
 [major] `npm version major`
+
 [minor] `npm version minor`
+
 [patch] `npm version patch`
