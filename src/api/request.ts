@@ -1,6 +1,5 @@
 import axios from './interceptor';
 import config from '../config';
-import { genericObject } from '../index';
 
 const METHOD_TYPE = {
   GET: 'GET',
@@ -53,7 +52,27 @@ const send = ({ url, method, params, data }) => {
       method,
       [body]: data,
     })
-      .then(res => resolve(res))
+      .then(res => resolve(res.data))
+      .catch(err => reject(err));
+  });
+};
+
+/**
+ * Send requests to server side (via WeChat Mini Program)
+ * @param url api endpoint
+ * @param method method type
+ * @param data data to pass as body
+ * @param params params to replace in path
+ * @returns response from server
+ */
+const sendWithMiniProgram = ({ url, method, params, data }) => {
+  return new Promise((resolve, reject) => {
+    wx.request({
+      url: config.HOST + format(url, params),
+      method,
+      data,
+    })
+      .then(res => resolve(res.data))
       .catch(err => reject(err));
   });
 };
@@ -65,8 +84,18 @@ const send = ({ url, method, params, data }) => {
 const request = (): genericObject => {
   const methods = ['get', 'post', 'put', 'delete'];
   const requestObj = methods.reduce((result, method) => {
-    result[method] = ({ url, params = {}, data = {} }) =>
-      send({ url, method: METHOD_TYPE[method.toUpperCase()], params, data });
+    result[method] = ({ url, params = {}, data = {} }) => {
+      if (config.USE_WITH_MINI_PROGRAM) {
+        sendWithMiniProgram({
+          url,
+          method: METHOD_TYPE[method.toUpperCase()],
+          params,
+          data,
+        });
+      } else {
+        send({ url, method: METHOD_TYPE[method.toUpperCase()], params, data });
+      }
+    };
     return result;
   }, {});
 
