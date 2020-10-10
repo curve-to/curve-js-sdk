@@ -16,7 +16,7 @@ class Document {
     this.init();
   }
 
-  init(): void {
+  private init(): void {
     this.document = {};
   }
 
