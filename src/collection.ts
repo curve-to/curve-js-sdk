@@ -1,15 +1,17 @@
 import API from './api';
 import Document from './document';
+import Query from './query';
 
 /**
  * Collection class
  * @memberof BaaS
  * @public
  */
-class Collection {
+class Collection extends Query {
   private collection: string;
 
   constructor(collection: string) {
+    super();
     this.collection = collection;
   }
 
@@ -32,35 +34,32 @@ class Collection {
 
   /**
    * Get documents of a collection
-   * @param pageSize
-   * @param pageNo
-   * @param exclude array of fields to be excluded
-   * @param sortOrder order. 1: ascending, -1: descending
    * @returns documents of a collection
    */
-  async find({
-    pageSize = 20,
-    pageNo = 1,
-    exclude = [],
-    sortOrder = -1,
-  } = {}): Promise<void> {
-    const data = { pageSize, pageNo, exclude: exclude.join(), sortOrder };
+  async find(): Promise<void> {
+    console.log(this.query);
+    const data = {
+      pageSize: this.pageSize,
+      pageNo: this.pageNo,
+      exclude: this.excluded.join(),
+      sortOrder: this.order,
+      query: JSON.stringify(this.query),
+    };
     return await API.getCollection({ collection: this.collection }, data);
   }
 
   /**
    * Get a document of a collection
    * @param documentId
-   * @param exclude array of fields to be excluded
    * @returns document details
    */
-  async findOne(documentId: string, { exclude = [] } = {}): Promise<void> {
+  async findOne(documentId: string): Promise<void> {
     return await API.getDocument(
       {
         collection: this.collection,
         documentId,
       },
-      { exclude: exclude.join() }
+      { exclude: this.excluded.join() }
     );
   }
 
