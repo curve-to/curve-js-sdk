@@ -37,7 +37,6 @@ class Collection extends Query {
    * @returns documents of a collection
    */
   async find(): Promise<void> {
-    console.log(this.query);
     const data = {
       pageSize: this.pageSize,
       pageNo: this.pageNo,

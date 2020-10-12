@@ -13,14 +13,19 @@ export default {
   },
 
   // collection related
-  create: (params: genericObject, data: genericObject): Promise<void> => {
-    return request.post({ url: '/collection/:collection', params, data });
-  },
   getCollection: (
     params: genericObject,
     data: genericObject
   ): Promise<void> => {
     return request.get({ url: '/collection/:collection', params, data });
+  },
+  count: (params: genericObject): Promise<void> => {
+    return request.get({ url: '/collection/:collection/count', params });
+  },
+
+  // document related
+  create: (params: genericObject, data: genericObject): Promise<void> => {
+    return request.post({ url: '/collection/:collection', params, data });
   },
   getDocument: (params: genericObject, data: genericObject): Promise<void> => {
     return request.get({
@@ -41,8 +46,5 @@ export default {
       url: '/collection/:collection/:documentId',
       params,
     });
-  },
-  count: (params: genericObject): Promise<void> => {
-    return request.get({ url: '/collection/:collection/count', params });
   },
 };
