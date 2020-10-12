@@ -1,6 +1,6 @@
 # curve-js-sdk
 
-A companion JS SDK for curve
+A JS SDK companion for curve
 
 ## Develop
 
