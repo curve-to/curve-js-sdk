@@ -4,7 +4,7 @@ A JS SDK companion for curve
 
 ## Develop
 
-To develop this JS-SDK on your own, simply run the following commands to install:
+To develop this JS-SDK on your own, simply run the following command to install:
 
 ```bash
 npm i
