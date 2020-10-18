@@ -41,6 +41,13 @@ export default {
       data,
     });
   },
+  updateMany: (params: genericObject, data: genericObject): Promise<void> => {
+    return request.put({
+      url: '/collection/:collection/updateMany',
+      params,
+      data,
+    });
+  },
   remove: (params: genericObject): Promise<void> => {
     return request.delete({
       url: '/collection/:collection/:documentId',

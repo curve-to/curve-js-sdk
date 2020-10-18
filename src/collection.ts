@@ -28,8 +28,12 @@ class Collection extends Query {
    * @param documentId
    * @returns an empty document with collection id and document id
    */
-  getWithoutData(documentId: string): Document {
-    return new Document(this.collection, documentId);
+  getWithoutData(documentId?: string): Document {
+    if (documentId) {
+      return new Document(this.collection, documentId);
+    } else {
+      return new Document(this.collection, null, this.query);
+    }
   }
 
   /**

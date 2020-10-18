@@ -9,15 +9,19 @@ class Document {
   private collection: string;
   private documentId: string;
   private document: genericObject;
+  private fieldsToUnset: string[];
+  private query: genericObject;
 
-  constructor(collection: string, documentId?: string) {
+  constructor(collection: string, documentId?: string, query?: genericObject) {
     this.collection = collection;
     this.documentId = documentId;
+    this.query = query;
     this.init();
   }
 
   private init(): void {
     this.document = {};
+    this.fieldsToUnset = [];
   }
 
   /**
@@ -27,6 +31,19 @@ class Document {
    */
   set(data: genericObject = {}): Document {
     this.document = Object.assign(this.document, data);
+    return this;
+  }
+
+  /**
+   * Remove fields of a document
+   * @param data fields to remove
+   */
+  unset(data: string | string[]): Document {
+    if (typeof data === 'string') {
+      data = [data];
+    }
+
+    this.fieldsToUnset = data;
     return this;
   }
 
@@ -52,7 +69,25 @@ class Document {
         collection: this.collection,
         documentId: this.documentId,
       },
-      this.document
+      {
+        data: { $set: this.document, $unset: this.fieldsToUnset },
+      }
+    );
+  }
+
+  /**
+   * Update multiple documents of a collection
+   * @returns a promise
+   */
+  async updateMany(): Promise<void> {
+    return await API.updateMany(
+      {
+        collection: this.collection,
+      },
+      {
+        query: this.query,
+        data: { $set: this.document, $unset: this.fieldsToUnset },
+      }
     );
   }
 }

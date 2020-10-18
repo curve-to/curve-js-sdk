@@ -64,29 +64,35 @@ class Query {
     return this;
   }
 
+  /**
+   * Compare
+   * @param key document field
+   * @param operator 
+   * @param value value to compare
+   */
   compare(key: string, operator: string, value: any): Query {
     let op = 'eq';
     switch (operator) {
-      case '=':
-        op = 'eq';
-        break;
-      case '!=':
-        op = 'ne';
-        break;
-      case '<':
-        op = 'lt';
-        break;
-      case '<=':
-        op = 'lte';
-        break;
-      case '>':
-        op = 'gt';
-        break;
-      case '>=':
-        op = 'gte';
-        break;
-      default:
-        throw new Error('Wrong operator. Please provide the correct one.');
+    case '=':
+      op = 'eq';
+      break;
+    case '!=':
+      op = 'ne';
+      break;
+    case '<':
+      op = 'lt';
+      break;
+    case '<=':
+      op = 'lte';
+      break;
+    case '>':
+      op = 'gt';
+      break;
+    case '>=':
+      op = 'gte';
+      break;
+    default:
+      throw new Error('Wrong operator. Please provide the correct one.');
     }
 
     const { query } = this;
