@@ -31,7 +31,7 @@ class Document {
    * @returns this
    */
   set(data: genericObject = {}): Document {
-    this.document.$set = Object.assign(this.document, data);
+    this.document.$set = Object.assign(this.document.$set, data);
     return this;
   }
 
