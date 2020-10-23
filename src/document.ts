@@ -9,7 +9,6 @@ class Document {
   private collection: string;
   private documentId: string;
   private document: genericObject;
-  private fieldsToUnset: string[];
   private query: genericObject;
 
   constructor(collection: string, documentId?: string, query?: genericObject) {
@@ -20,8 +19,10 @@ class Document {
   }
 
   private init(): void {
-    this.document = {};
-    this.fieldsToUnset = [];
+    this.document = {
+      $set: {},
+      $unset: [],
+    };
   }
 
   /**
@@ -30,7 +31,7 @@ class Document {
    * @returns this
    */
   set(data: genericObject = {}): Document {
-    this.document = Object.assign(this.document, data);
+    this.document.$set = Object.assign(this.document, data);
     return this;
   }
 
@@ -43,7 +44,7 @@ class Document {
       data = [data];
     }
 
-    this.fieldsToUnset = data;
+    this.document.$unset = data;
     return this;
   }
 
@@ -52,7 +53,10 @@ class Document {
    * @returns document info from server side
    */
   async save(): Promise<void> {
-    return await API.create({ collection: this.collection }, this.document);
+    return await API.create(
+      { collection: this.collection },
+      this.document.$set
+    );
   }
 
   /**
@@ -70,7 +74,7 @@ class Document {
         documentId: this.documentId,
       },
       {
-        data: { $set: this.document, $unset: this.fieldsToUnset },
+        data: this.document,
       }
     );
   }
@@ -86,7 +90,7 @@ class Document {
       },
       {
         query: this.query,
-        data: { $set: this.document, $unset: this.fieldsToUnset },
+        data: this.document,
       }
     );
   }

@@ -27,6 +27,9 @@ export default {
   create: (params: genericObject, data: genericObject): Promise<void> => {
     return request.post({ url: '/collection/:collection', params, data });
   },
+  createMany: (params: genericObject, data: genericObject): Promise<void> => {
+    return request.post({ url: '/collection/:collection/createMany', params, data });
+  },
   getDocument: (params: genericObject, data: genericObject): Promise<void> => {
     return request.get({
       url: '/collection/:collection/:documentId',

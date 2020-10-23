@@ -24,6 +24,14 @@ class Collection extends Query {
   }
 
   /**
+   * Create multiple documents
+   * @returns a number of documents created
+   */
+  async createMany(data: genericObject[]): Promise<void> {
+    return await API.createMany({ collection: this.collection }, data);
+  }
+
+  /**
    * Get a document without data
    * @param documentId
    * @returns an empty document with collection id and document id
