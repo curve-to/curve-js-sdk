@@ -1,6 +1,25 @@
 import API from './api';
 
 /**
+ * Silent login
+ */
+const silentLogin = () => {
+  return new Promise((resolve, reject) => {
+    wx.login({
+      success: async (res: genericObject) => {
+        if (res.code) {
+          const response =  await API.user.signInWithWeChat(res.code);
+          resolve(response);
+        } else {
+          console.log('Login failed! ' + res.errMsg);
+          reject(res);
+        }
+      },
+    });
+  });
+};
+
+/**
  * User class
  * @memberof BaaS
  * @public
@@ -48,24 +67,22 @@ class User {
 
   /**
    * static sign in with WeChat method
+   * @param data 
    * @returns login session and credentials
    */
-  static async silentLogin(): Promise<void> {
+  static async signInWithWeChat(authData: genericObject): Promise<unknown> {
     if (!wx || !wx.login) {
       console.error(
         'Unable to sign in with WeChat. Make sure your app is in WeChat environment.'
       );
       return;
     }
-    wx.login({
-      success: async (res: genericObject) => {
-        if (res.code) {
-          return await API.user.signInWithWeChat(res.code);
-        } else {
-          console.log('Login failed! ' + res.errMsg);
-        }
-      },
-    });
+
+    if (authData && authData.detail) {
+      return;
+    } else {
+      return await silentLogin();
+    }
   }
 }
 
