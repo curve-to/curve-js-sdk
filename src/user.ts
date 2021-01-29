@@ -13,7 +13,7 @@ class User {
    * @returns response from server
    */
   static async login({ username, password }: credential): Promise<void> {
-    return await API.login({ username, password });
+    return await API.user.login({ username, password });
   }
 
   /**
@@ -28,7 +28,7 @@ class User {
     password,
     email,
   }: credential): Promise<void> {
-    return await API.register({ username, password, email });
+    return await API.user.register({ username, password, email });
   }
 
   /**
@@ -43,7 +43,29 @@ class User {
     password,
     email,
   }: credential): Promise<void> {
-    return await API.changePassword({ username, password, email });
+    return await API.user.changePassword({ username, password, email });
+  }
+
+  /**
+   * static sign in with WeChat method
+   * @returns login session and credentials
+   */
+  static async silentLogin(): Promise<void> {
+    if (!wx || !wx.login) {
+      console.error(
+        'Unable to sign in with WeChat. Make sure your app is in WeChat environment.'
+      );
+      return;
+    }
+    wx.login({
+      success: async (res: genericObject) => {
+        if (res.code) {
+          return await API.user.signInWithWechat(res.code);
+        } else {
+          console.log('Login failed! ' + res.errMsg);
+        }
+      },
+    });
   }
 }
 

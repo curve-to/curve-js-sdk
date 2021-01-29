@@ -28,7 +28,7 @@ class Collection extends Query {
    * @returns a number of documents created
    */
   async createMany(data: genericObject[]): Promise<void> {
-    return await API.createMany({ collection: this.collection }, data);
+    return await API.collection.createMany({ collection: this.collection }, data);
   }
 
   /**
@@ -56,7 +56,7 @@ class Collection extends Query {
       sortOrder: this.order,
       query: JSON.stringify(this.query),
     };
-    return await API.getCollection({ collection: this.collection }, data);
+    return await API.collection.getCollection({ collection: this.collection }, data);
   }
 
   /**
@@ -65,7 +65,7 @@ class Collection extends Query {
    * @returns document details
    */
   async findOne(documentId: string): Promise<void> {
-    return await API.getDocument(
+    return await API.collection.getDocument(
       {
         collection: this.collection,
         documentId,
@@ -80,7 +80,7 @@ class Collection extends Query {
    * @returns ok
    */
   async remove(documentId: string): Promise<void> {
-    return await API.remove({
+    return await API.collection.remove({
       collection: this.collection,
       documentId,
     });
@@ -90,7 +90,7 @@ class Collection extends Query {
    * Count documents of a collection
    */
   async count(): Promise<void> {
-    return await API.count({
+    return await API.collection.count({
       collection: this.collection,
     });
   }
