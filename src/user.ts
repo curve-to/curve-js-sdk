@@ -60,7 +60,7 @@ class User {
     wx.login({
       success: async (res: genericObject) => {
         if (res.code) {
-          return await API.user.signInWithWechat(res.code);
+          return await API.user.signInWithWeChat(res.code);
         } else {
           console.log('Login failed! ' + res.errMsg);
         }

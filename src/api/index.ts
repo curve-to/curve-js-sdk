@@ -11,8 +11,8 @@ export default {
     changePassword: (data: genericObject): Promise<void> => {
       return request.put({ url: '/user/change', data });
     },
-    signInWithWechat: (data: genericObject): Promise<void> => {
-      return request.get({ url: '/user/signInWithWechat', data });
+    signInWithWeChat: (data: genericObject): Promise<void> => {
+      return request.get({ url: '/user/signInWithWeChat', data });
     },
   },
 
