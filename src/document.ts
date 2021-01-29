@@ -53,7 +53,7 @@ class Document {
    * @returns document info from server side
    */
   async save(): Promise<void> {
-    return await API.create(
+    return await API.collection.create(
       { collection: this.collection },
       this.document.$set
     );
@@ -68,7 +68,7 @@ class Document {
       throw new Error('Document id is required');
     }
 
-    return await API.update(
+    return await API.collection.update(
       {
         collection: this.collection,
         documentId: this.documentId,
@@ -84,7 +84,7 @@ class Document {
    * @returns a promise
    */
   async updateMany(): Promise<void> {
-    return await API.updateMany(
+    return await API.collection.updateMany(
       {
         collection: this.collection,
       },
