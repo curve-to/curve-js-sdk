@@ -12,6 +12,7 @@ class Collection extends Query {
 
   constructor(collection: string) {
     super();
+    console.log('collection - ', collection);
     this.collection = collection;
   }
 
@@ -49,6 +50,7 @@ class Collection extends Query {
    * @returns documents of a collection
    */
   async find(): Promise<void> {
+    console.log(1111);
     const data = {
       pageSize: this.pageSize,
       pageNo: this.pageNo,
@@ -56,6 +58,7 @@ class Collection extends Query {
       sortOrder: this.order,
       query: JSON.stringify(this.query),
     };
+
     return await API.collection.getCollection({ collection: this.collection }, data);
   }
 

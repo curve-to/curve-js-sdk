@@ -8,7 +8,7 @@ const silentLogin = () => {
     wx.login({
       success: async (res: genericObject) => {
         if (res.code) {
-          const response =  await API.user.signInWithWeChat(res.code);
+          const response =  await API.user.signInWithWeChat({code: res.code});
           resolve(response);
         } else {
           console.log('Login failed! ' + res.errMsg);
