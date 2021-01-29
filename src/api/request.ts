@@ -71,6 +71,9 @@ const sendViaMiniProgram = ({ url, method, params, data }) => {
       url: config.HOST + format(url, params),
       method,
       data,
+      header: {
+        appid: config.APP_ID,
+      },
       success: (res: genericObject) => resolve(res.data),
       fail: (err: genericObject) => reject(err),
     });
