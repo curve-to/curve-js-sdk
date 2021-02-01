@@ -116,12 +116,9 @@ class Collection extends Query {
     const query = Object.keys(this.query).reduce(
       (final: genericObject, key: string): genericObject => {
         const value = this.query[key];
-        Object.keys(value).forEach(subKey => {
-          if (subKey === '$eq') {
-            final[key] = value[subKey];
-          }
-        });
-
+        if (value['$eq'] != null) {
+          final[key] = value['$eq']
+        }
         return final;
       },
       {}
