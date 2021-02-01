@@ -1,6 +1,7 @@
 import API from './api';
 import STORAGE from './storage';
 import { WITH_MINI_PROGRAM } from './config';
+import { USER_INFO, AUTH_TOKEN } from './constants';
 
 type LoginInfo = {
   token: string;
@@ -95,12 +96,12 @@ class User {
 
     if (userInfo) {
       const _userInfo = await updateWeChatUserInfo(userInfo);
-      STORAGE.set('user_info', _userInfo);
+      STORAGE.set(USER_INFO, _userInfo);
       return _userInfo;
     } else {
       const { token, user: _userInfo } = <LoginInfo>await silentLogin();
-      STORAGE.set('user_info', _userInfo);
-      STORAGE.set('token', token);
+      STORAGE.set(USER_INFO, _userInfo);
+      STORAGE.set(AUTH_TOKEN, token);
       return { token, user: _userInfo };
     }
   }

@@ -1,5 +1,6 @@
 import axios from './interceptor';
 import config from '../config';
+import { getAuthToken } from '../common';
 
 const METHOD_TYPE = {
   GET: 'GET',
@@ -67,13 +68,16 @@ const send = ({ url, method, params, data }) => {
  */
 const sendViaMiniProgram = ({ url, method, params, data }) => {
   return new Promise((resolve, reject) => {
+    const token = getAuthToken();
+    const header = token
+      ? { appid: config.APP_ID, Authorization: token }
+      : { appid: config.APP_ID };
+
     wx.request({
       url: config.HOST + format(url, params),
       method,
       data,
-      header: {
-        appid: config.APP_ID,
-      },
+      header,
       success: (res: genericObject) => resolve(res.data),
       fail: (err: genericObject) => reject(err),
     });
