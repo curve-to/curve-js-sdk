@@ -17,7 +17,7 @@ const getStorage = (key: string) => {
  * Set storage method
  */
 const setStorage = (key: string, value: unknown) => {
-  const _value = typeof value === 'string' ? value : JSON.stringify(value);
+  const _value = JSON.stringify({ value });
 
   if (WITH_MINI_PROGRAM) {
     return wx.setStorageSync(STORAGE_KEY_PREFIX + key, _value);
@@ -37,20 +37,11 @@ class Storage {
    * @param key
    */
   static get(key: string): unknown {
-    let result: unknown;
-    const value = getStorage(key);
-
-    if (value) {
-      try {
-        result = JSON.parse(value);
-      } catch (error) {
-        result = value;
-      }
-    } else {
-      result = value;
+    try {
+      return JSON.parse(getStorage(key)).value;
+    } catch {
+      return null;
     }
-
-    return result;
   }
 
   /**
