@@ -108,7 +108,7 @@ class Collection extends Query {
    * @param endDate
    * @param field target field to sum
    */
-  async sum({ startDate = '', endDate = '', field = '' } = {}): Promise<void> {
+  async sum(field: string, { startDate = '', endDate = '' } = {}): Promise<void> {
     if (!field) {
       throw new Error('Field is required');
     }
