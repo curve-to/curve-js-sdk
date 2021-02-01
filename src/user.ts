@@ -1,4 +1,11 @@
 import API from './api';
+import STORAGE from './storage';
+import { WITH_MINI_PROGRAM } from './config';
+
+type LoginInfo = {
+  token: string;
+  user: genericObject;
+};
 
 /**
  * Silent login
@@ -11,7 +18,7 @@ const silentLogin = () => {
           const response = await API.user.signInWithWeChat({ code: res.code });
           resolve(response);
         } else {
-          console.log('Login failed! ' + res.errMsg);
+          console.error('Login failed! ' + res.errMsg);
           reject(res);
         }
       },
@@ -79,7 +86,7 @@ class User {
    * @returns login session and credentials
    */
   static async signInWithWeChat(userInfo: genericObject): Promise<unknown> {
-    if (!wx || !wx.login) {
+    if (!WITH_MINI_PROGRAM) {
       console.error(
         'Unable to sign in with WeChat. Make sure your app is in WeChat environment.'
       );
@@ -87,9 +94,14 @@ class User {
     }
 
     if (userInfo) {
-      return await updateWeChatUserInfo(userInfo);
+      const _userInfo = await updateWeChatUserInfo(userInfo);
+      STORAGE.set('user_info', _userInfo);
+      return _userInfo;
     } else {
-      return await silentLogin();
+      const { token, user: _userInfo } = <LoginInfo>await silentLogin();
+      STORAGE.set('user_info', _userInfo);
+      STORAGE.set('token', token);
+      return { token, user: _userInfo };
     }
   }
 }
