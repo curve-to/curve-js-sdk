@@ -53,7 +53,7 @@ const send = ({ url, method, params, data }) => {
       method,
       [body]: data,
     })
-      .then(res => resolve(res.data))
+      .then(res => resolve(res.data.data))
       .catch(err => reject(err));
   });
 };
@@ -78,7 +78,7 @@ const sendViaMiniProgram = ({ url, method, params, data }) => {
       method,
       data,
       header,
-      success: (res: genericObject) => resolve(res.data),
+      success: (res: genericObject) => resolve(res.data.data),
       fail: (err: genericObject) => reject(err),
     });
   });
