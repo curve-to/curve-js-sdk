@@ -70,7 +70,7 @@ class Query {
    * @param operator 
    * @param value value to compare
    */
-  compare(key: string, operator: string, value: any): Query {
+  compare(key: string, operator: string, value: unknown): Query {
     let op = 'eq';
     switch (operator) {
     case '=':

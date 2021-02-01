@@ -95,7 +95,7 @@ const request = (): genericObject => {
         data,
       };
 
-      if (config.USE_WITH_MINI_PROGRAM) {
+      if (config.WITH_MINI_PROGRAM) {
         return sendViaMiniProgram(paramsToSend);
       }
 
