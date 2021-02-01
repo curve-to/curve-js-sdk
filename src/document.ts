@@ -26,7 +26,7 @@ class Document {
   }
 
   /**
-   * Set data to document
+   * Set document data
    * @param data
    * @returns this
    */

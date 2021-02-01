@@ -28,7 +28,10 @@ class Collection extends Query {
    * @returns a number of documents created
    */
   async createMany(data: genericObject[]): Promise<void> {
-    return await API.collection.createMany({ collection: this.collection }, data);
+    return await API.collection.createMany(
+      { collection: this.collection },
+      data
+    );
   }
 
   /**
@@ -57,7 +60,10 @@ class Collection extends Query {
       query: JSON.stringify(this.query),
     };
 
-    return await API.collection.getCollection({ collection: this.collection }, data);
+    return await API.collection.getCollection(
+      { collection: this.collection },
+      data
+    );
   }
 
   /**
@@ -94,6 +100,44 @@ class Collection extends Query {
     return await API.collection.count({
       collection: this.collection,
     });
+  }
+
+  /**
+   * Get sum total of a specific field from date range
+   * @param startDate
+   * @param endDate
+   * @param field target field to sum
+   */
+  async sum({ startDate = '', endDate = '', field = '' } = {}): Promise<void> {
+    if (!field) {
+      throw new Error('Field is required');
+    }
+
+    const query = Object.keys(this.query).reduce(
+      (final: genericObject, key: string): genericObject => {
+        const value = this.query[key];
+        Object.keys(value).forEach(subKey => {
+          if (subKey === '$eq') {
+            final[key] = value[subKey];
+          }
+        });
+
+        return final;
+      },
+      {}
+    );
+
+    return await API.collection.sum(
+      {
+        collection: this.collection,
+      },
+      {
+        query,
+        startDate,
+        endDate,
+        field,
+      }
+    );
   }
 }
 

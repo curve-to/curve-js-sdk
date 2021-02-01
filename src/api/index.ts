@@ -29,6 +29,9 @@ export default {
     count: (params: genericObject): Promise<void> => {
       return request.get({ url: '/collection/:collection/count', params });
     },
+    sum: (params: genericObject, data: genericObject): Promise<void> => {
+      return request.post({ url: '/collection/:collection/sum', params, data });
+    },
 
     // document related
     create: (params: genericObject, data: genericObject): Promise<void> => {
