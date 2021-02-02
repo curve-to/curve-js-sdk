@@ -108,30 +108,17 @@ class Collection extends Query {
    * @param endDate
    * @param field target field to sum
    */
-  async sum(field: string, { startDate = '', endDate = '' } = {}): Promise<void> {
+  async sum(field: string): Promise<void> {
     if (!field) {
       throw new Error('Field is required');
     }
-
-    const query = Object.keys(this.query).reduce(
-      (final: genericObject, key: string): genericObject => {
-        const value = this.query[key];
-        if (value['$eq'] != null) {
-          final[key] = value['$eq']
-        }
-        return final;
-      },
-      {}
-    );
 
     return await API.collection.sum(
       {
         collection: this.collection,
       },
       {
-        query,
-        startDate,
-        endDate,
+        query: this.query,
         field,
       }
     );

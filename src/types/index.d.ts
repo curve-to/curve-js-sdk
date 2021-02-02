@@ -9,3 +9,8 @@ declare type credential = {
 declare type genericObject = {
   [key: string]: any;
 };
+
+declare type LoginInfo = {
+  token: string;
+  user: genericObject;
+};

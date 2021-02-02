@@ -3,15 +3,10 @@ import STORAGE from './storage';
 import { WITH_MINI_PROGRAM } from './config';
 import { USER_INFO, AUTH_TOKEN } from './constants';
 
-type LoginInfo = {
-  token: string;
-  user: genericObject;
-};
-
 /**
  * Silent login
  */
-const silentLogin = () => {
+const silentLogin = (): Promise<LoginInfo> => {
   return new Promise((resolve, reject) => {
     wx.login({
       success: async (res: genericObject) => {
@@ -47,8 +42,12 @@ class User {
    * @param password
    * @returns response from server
    */
-  static async login({ username, password }: credential): Promise<void> {
-    return await API.user.login({ username, password });
+  static async login({ username, password }: credential): Promise<LoginInfo> {
+    const result = await API.user.login({ username, password });
+    const { token, user: _userInfo } = result;
+    STORAGE.set(USER_INFO, _userInfo);
+    STORAGE.set(AUTH_TOKEN, token);
+    return result;
   }
 
   /**
@@ -99,7 +98,7 @@ class User {
       STORAGE.set(USER_INFO, _userInfo);
       return _userInfo;
     } else {
-      const { token, user: _userInfo } = <LoginInfo>await silentLogin();
+      const { token, user: _userInfo } = await silentLogin();
       STORAGE.set(USER_INFO, _userInfo);
       STORAGE.set(AUTH_TOKEN, token);
       return { token, user: _userInfo };

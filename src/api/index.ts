@@ -2,7 +2,7 @@ import request from './request';
 
 export default {
   user: {
-    login: (data: genericObject): Promise<void> => {
+    login: (data: genericObject): Promise<LoginInfo> => {
       return request.post({ url: '/user/login', data });
     },
     register: (data: genericObject): Promise<void> => {
@@ -11,7 +11,7 @@ export default {
     changePassword: (data: genericObject): Promise<void> => {
       return request.put({ url: '/user/change', data });
     },
-    signInWithWeChat: (data: genericObject): Promise<void> => {
+    signInWithWeChat: (data: genericObject): Promise<LoginInfo> => {
       return request.get({ url: '/user/signInWithWeChat', data });
     },
     updateWeChatUserInfo: (data: genericObject): Promise<void> => {
