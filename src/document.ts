@@ -65,7 +65,7 @@ class Document {
    */
   async update(): Promise<void> {
     if (!this.documentId) {
-      throw new Error('Document id is required');
+      throw new Error('Document id is required.');
     }
 
     return await API.collection.update(

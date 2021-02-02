@@ -6,7 +6,7 @@ import { USER_INFO, AUTH_TOKEN } from './constants';
 /**
  * Silent login
  */
-const silentLogin = (): Promise<LoginInfo> => {
+const silentLogin = (): Promise<loginInfo> => {
   return new Promise((resolve, reject) => {
     wx.login({
       success: async (res: genericObject) => {
@@ -42,7 +42,7 @@ class User {
    * @param password
    * @returns response from server
    */
-  static async login({ username, password }: credential): Promise<LoginInfo> {
+  static async login({ username, password }: credential): Promise<loginInfo> {
     const result = await API.user.login({ username, password });
     const { token, user: _userInfo } = result;
     STORAGE.set(USER_INFO, _userInfo);

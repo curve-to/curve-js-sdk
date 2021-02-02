@@ -10,7 +10,7 @@ declare type genericObject = {
   [key: string]: any;
 };
 
-declare type LoginInfo = {
+declare type loginInfo = {
   token: string;
   user: genericObject;
 };
