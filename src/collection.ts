@@ -104,8 +104,6 @@ class Collection extends Query {
 
   /**
    * Get sum total of a specific field from date range
-   * @param startDate
-   * @param endDate
    * @param field target field to sum
    */
   async sum(field: string): Promise<void> {
@@ -114,9 +112,7 @@ class Collection extends Query {
     }
 
     return await API.collection.sum(
-      {
-        collection: this.collection,
-      },
+      { collection: this.collection },
       {
         query: this.query,
         field,
