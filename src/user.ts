@@ -14,7 +14,6 @@ const silentLogin = (): Promise<loginInfo> => {
           const response = await API.user.signInWithWeChat({ code: res.code });
           resolve(response);
         } else {
-          console.error('Login failed! ' + res.errMsg);
           reject(res);
         }
       },

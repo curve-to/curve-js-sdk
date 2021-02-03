@@ -92,7 +92,7 @@ class Query {
       op = 'gte';
       break;
     default:
-      throw new Error('Wrong operator. Please provide the correct one.');
+      throw new Error('Invalid operator. Please provide the correct one.');
     }
 
     const { query } = this;
