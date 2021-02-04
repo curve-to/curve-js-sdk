@@ -1,13 +1,7 @@
 import axios from './interceptor';
 import config from '../config';
 import { getAuthToken } from '../common';
-
-const METHOD_TYPE = {
-  GET: 'GET',
-  POST: 'POST',
-  PUT: 'PUT',
-  DELETE: 'DELETE',
-};
+import constants from '../constants';
 
 /**
  * Convert API params
@@ -94,7 +88,7 @@ const request = (): genericObject => {
     result[method] = ({ url, params = {}, data = {} }) => {
       const paramsToSend = {
         url,
-        method: METHOD_TYPE[method.toUpperCase()],
+        method: constants.METHOD_TYPE[method.toUpperCase()],
         params,
         data,
       };

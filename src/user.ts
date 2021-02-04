@@ -1,7 +1,7 @@
 import API from './api';
 import STORAGE from './storage';
+import constants from './constants';
 import { WITH_MINI_PROGRAM } from './config';
-import { USER_INFO, AUTH_TOKEN } from './constants';
 
 /**
  * Silent login
@@ -44,8 +44,8 @@ class User {
   static async login({ username, password }: credential): Promise<loginInfo> {
     const result = await API.user.login({ username, password });
     const { token, user: _userInfo } = result;
-    STORAGE.set(USER_INFO, _userInfo);
-    STORAGE.set(AUTH_TOKEN, token);
+    STORAGE.set(constants.USER_INFO, _userInfo);
+    STORAGE.set(constants.AUTH_TOKEN, token);
     return result;
   }
 
@@ -94,12 +94,12 @@ class User {
 
     if (userInfo) {
       const _userInfo = await updateWeChatUserInfo(userInfo);
-      STORAGE.set(USER_INFO, _userInfo);
+      STORAGE.set(constants.USER_INFO, _userInfo);
       return _userInfo;
     } else {
       const { token, user: _userInfo } = await silentLogin();
-      STORAGE.set(USER_INFO, _userInfo);
-      STORAGE.set(AUTH_TOKEN, token);
+      STORAGE.set(constants.USER_INFO, _userInfo);
+      STORAGE.set(constants.AUTH_TOKEN, token);
       return { token, user: _userInfo };
     }
   }
