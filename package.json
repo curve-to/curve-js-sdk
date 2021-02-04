@@ -5,7 +5,8 @@
   "main": "dist/index.js",
   "scripts": {
     "dev": "webpack --config webpack.config.js --watch",
-    "build": "webpack --config webpack.config.js"
+    "build": "webpack --config webpack.config.js",
+    "lint": "eslint '**/*.js' --cache --fix"
   },
   "repository": {
     "type": "git",
