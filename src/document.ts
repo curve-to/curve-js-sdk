@@ -1,5 +1,7 @@
 import API from './api';
 
+console.log(API);
+
 /**
  * Document class
  * @memberof BaaS
@@ -53,10 +55,10 @@ class Document {
    * @returns document info from server side
    */
   async save(): Promise<void> {
-    return await API.collection.create(
-      { collection: this.collection },
-      this.document.$set
-    );
+    return await API.collection.create({
+      params: { collection: this.collection },
+      data: this.document.$set,
+    });
   }
 
   /**
@@ -68,15 +70,13 @@ class Document {
       throw new Error('Document id is required.');
     }
 
-    return await API.collection.update(
-      {
+    return await API.collection.update({
+      params: {
         collection: this.collection,
         documentId: this.documentId,
       },
-      {
-        data: this.document,
-      }
-    );
+      data: { data: this.document },
+    });
   }
 
   /**
@@ -84,15 +84,13 @@ class Document {
    * @returns a promise
    */
   async updateMany(): Promise<void> {
-    return await API.collection.updateMany(
-      {
-        collection: this.collection,
-      },
-      {
+    return await API.collection.updateMany({
+      params: { collection: this.collection },
+      data: {
         query: this.query,
         data: this.document,
-      }
-    );
+      },
+    });
   }
 }
 

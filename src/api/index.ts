@@ -1,78 +1,29 @@
 import request from './request';
+import constants from '../constants';
 
-export default {
-  user: {
-    login: (data: genericObject): Promise<loginInfo> => {
-      return request.post({ url: '/user/login', data });
-    },
-    register: (data: genericObject): Promise<void> => {
-      return request.post({ url: '/user/register', data });
-    },
-    changePassword: (data: genericObject): Promise<void> => {
-      return request.put({ url: '/user/change', data });
-    },
-    signInWithWeChat: (data: genericObject): Promise<loginInfo> => {
-      return request.get({ url: '/user/signInWithWeChat', data });
-    },
-    updateWeChatUserInfo: (data: genericObject): Promise<void> => {
-      return request.post({ url: '/user/updateWeChatUserInfo', data });
-    },
-  },
+const { ROUTES } = constants;
 
-  collection: {
-    getCollection: (
-      params: genericObject,
-      data: genericObject
-    ): Promise<void> => {
-      return request.get({ url: '/collection/:collection', params, data });
-    },
-    count: (params: genericObject): Promise<void> => {
-      return request.get({ url: '/collection/:collection/count', params });
-    },
-    sum: (params: genericObject, data: genericObject): Promise<void> => {
-      return request.post({ url: '/collection/:collection/sum', params, data });
-    },
+/**
+ * Create API calls
+ * So that we can focus only on url and method change to
+ * avoid adding a very similar request function every time
+ * we add a new API route
+ */
+const createAPICalls = (): genericObject => {
+  return Object.keys(ROUTES).reduce((final, key) => {
+    final[key] = {};
+    for (const subKey in ROUTES[key]) {
+      const { url, method } = ROUTES[key][subKey];
+      const apiMethod = method.toLowerCase();
 
-    // document related
-    create: (params: genericObject, data: genericObject): Promise<void> => {
-      return request.post({ url: '/collection/:collection', params, data });
-    },
-    createMany: (params: genericObject, data: genericObject): Promise<void> => {
-      return request.post({
-        url: '/collection/:collection/createMany',
-        params,
-        data,
-      });
-    },
-    getDocument: (
-      params: genericObject,
-      data: genericObject
-    ): Promise<void> => {
-      return request.get({
-        url: '/collection/:collection/:documentId',
-        params,
-        data,
-      });
-    },
-    update: (params: genericObject, data: genericObject): Promise<void> => {
-      return request.put({
-        url: '/collection/:collection/:documentId',
-        params,
-        data,
-      });
-    },
-    updateMany: (params: genericObject, data: genericObject): Promise<void> => {
-      return request.put({
-        url: '/collection/:collection/updateMany',
-        params,
-        data,
-      });
-    },
-    remove: (params: genericObject): Promise<void> => {
-      return request.delete({
-        url: '/collection/:collection/:documentId',
-        params,
-      });
-    },
-  },
+      // params are what to be replaced in url string, e.g. /collection/:collection/
+      // data is what to be sent to the backend
+      final[key][subKey] = ({ params, data }) => {
+        return request[apiMethod](url, { data, params });
+      };
+    }
+    return final;
+  }, {});
 };
+
+export default createAPICalls();

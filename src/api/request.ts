@@ -85,7 +85,7 @@ const sendViaMiniProgram = ({ url, method, params, data }) => {
 const request = (): genericObject => {
   const methods = ['get', 'post', 'put', 'delete'];
   const requestObj = methods.reduce((result, method) => {
-    result[method] = ({ url, params = {}, data = {} }) => {
+    result[method] = (url: string, { params = {}, data = {} }) => {
       const paramsToSend = {
         url,
         method: constants.METHOD_TYPE[method.toUpperCase()],

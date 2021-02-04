@@ -1,6 +1,6 @@
-import API from './api';
 import Document from './document';
 import Query from './query';
+import API from './api';
 
 /**
  * Collection class
@@ -28,10 +28,10 @@ class Collection extends Query {
    * @returns a number of documents created
    */
   async createMany(data: genericObject[]): Promise<void> {
-    return await API.collection.createMany(
-      { collection: this.collection },
-      data
-    );
+    return await API.collection.createMany({
+      params: { collection: this.collection },
+      data,
+    });
   }
 
   /**
@@ -60,10 +60,10 @@ class Collection extends Query {
       query: JSON.stringify(this.query),
     };
 
-    return await API.collection.getCollection(
-      { collection: this.collection },
-      data
-    );
+    return await API.collection.getCollection({
+      params: { collection: this.collection },
+      data,
+    });
   }
 
   /**
@@ -72,13 +72,13 @@ class Collection extends Query {
    * @returns document details
    */
   async findOne(documentId: string): Promise<void> {
-    return await API.collection.getDocument(
-      {
+    return await API.collection.getDocument({
+      params: {
         collection: this.collection,
         documentId,
       },
-      { exclude: this.excluded.join() }
-    );
+      data: { exclude: this.excluded.join() },
+    });
   }
 
   /**
@@ -88,17 +88,17 @@ class Collection extends Query {
    */
   async remove(documentId: string): Promise<void> {
     return await API.collection.remove({
-      collection: this.collection,
-      documentId,
+      params: { collection: this.collection, documentId },
     });
   }
 
   /**
    * Count documents of a collection
+   * @returns count
    */
   async count(): Promise<void> {
     return await API.collection.count({
-      collection: this.collection,
+      params: { collection: this.collection },
     });
   }
 
@@ -111,13 +111,13 @@ class Collection extends Query {
       throw new Error('Field is required');
     }
 
-    return await API.collection.sum(
-      { collection: this.collection },
-      {
+    return await API.collection.sum({
+      params: { collection: this.collection },
+      data: {
         query: this.query,
         field,
-      }
-    );
+      },
+    });
   }
 }
 

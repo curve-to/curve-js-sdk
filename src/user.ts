@@ -1,7 +1,7 @@
-import API from './api';
 import STORAGE from './storage';
 import constants from './constants';
 import { WITH_MINI_PROGRAM } from './config';
+import API from './api';
 
 /**
  * Silent login
@@ -11,7 +11,9 @@ const silentLogin = (): Promise<loginInfo> => {
     wx.login({
       success: async (res: genericObject) => {
         if (res.code) {
-          const response = await API.user.signInWithWeChat({ code: res.code });
+          const response = await API.user.signInWithWeChat({
+            data: { code: res.code },
+          });
           resolve(response);
         } else {
           reject(res);
@@ -26,7 +28,7 @@ const silentLogin = (): Promise<loginInfo> => {
  * @param userInfo
  */
 const updateWeChatUserInfo = async (userInfo: genericObject) => {
-  return await API.user.updateWeChatUserInfo({ userInfo });
+  return await API.user.updateWeChatUserInfo({ data: { userInfo } });
 };
 
 /**
@@ -42,7 +44,7 @@ class User {
    * @returns response from server
    */
   static async login({ username, password }: credential): Promise<loginInfo> {
-    const result = await API.user.login({ username, password });
+    const result = await API.user.login({ data: { username, password } });
     const { token, user: _userInfo } = result;
     STORAGE.set(constants.USER_INFO, _userInfo);
     STORAGE.set(constants.AUTH_TOKEN, token);
@@ -61,7 +63,7 @@ class User {
     password,
     email,
   }: credential): Promise<void> {
-    return await API.user.register({ username, password, email });
+    return await API.user.register({ data: { username, password, email } });
   }
 
   /**
@@ -76,7 +78,9 @@ class User {
     password,
     email,
   }: credential): Promise<void> {
-    return await API.user.changePassword({ username, password, email });
+    return await API.user.changePassword({
+      data: { username, password, email },
+    });
   }
 
   /**
