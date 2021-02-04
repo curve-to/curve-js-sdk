@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "webpack --config webpack.config.js --watch",
     "build": "webpack --config webpack.config.js",
-    "lint": "eslint '**/*.js' --cache --fix"
+    "lint": "eslint '**/*.ts' --cache --fix"
   },
   "repository": {
     "type": "git",

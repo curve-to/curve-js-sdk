@@ -7,6 +7,7 @@ declare type credential = {
 };
 
 declare type genericObject = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 };
 
