@@ -16,6 +16,19 @@ export default class Collection extends Query {
   }
 
   /**
+   * Get a document without data
+   * @param documentId
+   * @returns an empty document with collection id and document id
+   */
+  getWithoutData(documentId?: string): Document {
+    if (documentId) {
+      return new Document(this.collection, documentId);
+    } else {
+      return new Document(this.collection, null, this.query);
+    }
+  }
+
+  /**
    * Create an empty document
    * @returns a new document with collection id
    */
@@ -35,23 +48,25 @@ export default class Collection extends Query {
   }
 
   /**
-   * Get a document without data
+   * Get a document of a collection
    * @param documentId
-   * @returns an empty document with collection id and document id
+   * @returns document details
    */
-  getWithoutData(documentId?: string): Document {
-    if (documentId) {
-      return new Document(this.collection, documentId);
-    } else {
-      return new Document(this.collection, null, this.query);
-    }
+  async find(documentId: string): Promise<void> {
+    return await API.collection.getDocument({
+      params: {
+        collection: this.collection,
+        documentId,
+      },
+      data: { exclude: this.excluded.join() },
+    });
   }
 
   /**
    * Get documents of a collection
    * @returns documents of a collection
    */
-  async find(): Promise<void> {
+  async findMany(): Promise<void> {
     const data = {
       pageSize: this.pageSize,
       pageNo: this.pageNo,
@@ -63,21 +78,6 @@ export default class Collection extends Query {
     return await API.collection.getCollection({
       params: { collection: this.collection },
       data,
-    });
-  }
-
-  /**
-   * Get a document of a collection
-   * @param documentId
-   * @returns document details
-   */
-  async findOne(documentId: string): Promise<void> {
-    return await API.collection.getDocument({
-      params: {
-        collection: this.collection,
-        documentId,
-      },
-      data: { exclude: this.excluded.join() },
     });
   }
 
