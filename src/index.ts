@@ -3,6 +3,7 @@ import User from './user';
 import Collection from './collection';
 import Document from './document';
 import Query from './query';
+import Storage from './storage';
 
 /**
  * Define BaaS
@@ -17,6 +18,7 @@ const BaaS = {
   Collection,
   Document,
   Query,
+  Storage,
 };
 
 /**
