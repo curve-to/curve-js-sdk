@@ -4,39 +4,11 @@ import { WITH_MINI_PROGRAM } from './config';
 import API from './api';
 
 /**
- * Silent login
- */
-const silentLogin = (): Promise<loginInfo> => {
-  return new Promise((resolve, reject) => {
-    wx.login({
-      success: async (res: genericObject) => {
-        if (res.code) {
-          const response = await API.user.signInWithWeChat({
-            data: { code: res.code },
-          });
-          resolve(response);
-        } else {
-          reject(res);
-        }
-      },
-    });
-  });
-};
-
-/**
- * Update WeChat user info
- * @param userInfo
- */
-const updateWeChatUserInfo = async (userInfo: genericObject) => {
-  return await API.user.updateWeChatUserInfo({ data: { userInfo } });
-};
-
-/**
  * User class
  * @memberof BaaS
  * @public
  */
-class User {
+export default class User {
   /**
    * static login method
    * @param username
@@ -109,4 +81,30 @@ class User {
   }
 }
 
-export default User;
+/**
+ * Silent login
+ */
+const silentLogin = (): Promise<loginInfo> => {
+  return new Promise((resolve, reject) => {
+    wx.login({
+      success: async (res: genericObject) => {
+        if (res.code) {
+          const response = await API.user.signInWithWeChat({
+            data: { code: res.code },
+          });
+          resolve(response);
+        } else {
+          reject(res);
+        }
+      },
+    });
+  });
+};
+
+/**
+ * Update WeChat user info
+ * @param userInfo
+ */
+const updateWeChatUserInfo = async (userInfo: genericObject) => {
+  return await API.user.updateWeChatUserInfo({ data: { userInfo } });
+};

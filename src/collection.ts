@@ -7,7 +7,7 @@ import API from './api';
  * @memberof BaaS
  * @public
  */
-class Collection extends Query {
+export default class Collection extends Query {
   private collection: string;
 
   constructor(collection: string) {
@@ -120,5 +120,3 @@ class Collection extends Query {
     });
   }
 }
-
-export default Collection;

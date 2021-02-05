@@ -3,7 +3,7 @@
  * @memberof BaaS
  * @public
  */
-class Query {
+export default class Query {
   protected pageSize: number;
   protected pageNo: number;
   protected excluded: string[];
@@ -101,5 +101,3 @@ class Query {
     return this;
   }
 }
-
-export default Query;

@@ -1,13 +1,11 @@
 import API from './api';
 
-console.log(API);
-
 /**
  * Document class
  * @memberof BaaS
  * @public
  */
-class Document {
+export default class Document {
   private collection: string;
   private documentId: string;
   private document: genericObject;
@@ -93,5 +91,3 @@ class Document {
     });
   }
 }
-
-export default Document;
