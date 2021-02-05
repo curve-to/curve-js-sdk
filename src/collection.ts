@@ -93,6 +93,19 @@ export default class Collection extends Query {
   }
 
   /**
+   * Remove multiple documents from a collection
+   * @returns ok
+   */
+  async removeMany(): Promise<void> {
+    return await API.collection.removeMany({
+      params: { collection: this.collection },
+      data: {
+        query: this.query,
+      },
+    });
+  }
+
+  /**
    * Count documents of a collection
    * @returns count
    */

@@ -69,6 +69,10 @@ export default {
         url: '/collection/:collection/:documentId',
         method: 'DELETE',
       },
+      removeMany: {
+        url: '/collection/:collection',
+        method: 'DELETE',
+      },
     },
   },
 };
