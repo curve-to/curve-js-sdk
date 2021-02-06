@@ -41,6 +41,10 @@ export default class Collection extends Query {
    * @returns a number of documents created
    */
   async createMany(data: genericObject[]): Promise<void> {
+    if (!Array.isArray(data)) {
+      throw new Error('Data must be Array type.');
+    }
+
     return await API.collection.createMany({
       params: { collection: this.collection },
       data,
