@@ -49,7 +49,11 @@ export default class Query {
    * @param excluded array of fields to be excluded
    * @returns this
    */
-  exclude(excluded: string[]): Query {
+  exclude(excluded: string | string[]): Query {
+    if (typeof excluded === 'string') {
+      excluded = [excluded]
+    }
+
     this.excluded = excluded;
     return this;
   }
