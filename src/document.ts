@@ -9,12 +9,12 @@ export default class Document {
   private collection: string;
   private documentId: string;
   private document: genericObject;
-  private query: genericObject;
+  private where: genericObject;
 
-  constructor(collection: string, documentId?: string, query?: genericObject) {
+  constructor(collection: string, documentId?: string, where?: genericObject) {
     this.collection = collection;
     this.documentId = documentId;
-    this.query = query;
+    this.where = where;
     this.init();
   }
 
@@ -85,7 +85,7 @@ export default class Document {
     return await API.collection.updateMany({
       params: { collection: this.collection },
       data: {
-        query: this.query,
+        where: this.where,
         data: this.document,
       },
     });

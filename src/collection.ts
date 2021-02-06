@@ -24,7 +24,7 @@ export default class Collection extends Query {
     if (documentId) {
       return new Document(this.collection, documentId);
     } else {
-      return new Document(this.collection, null, this.query);
+      return new Document(this.collection, null, this.where);
     }
   }
 
@@ -76,7 +76,7 @@ export default class Collection extends Query {
       pageNo: this.pageNo,
       exclude: this.excluded.join(),
       sortOrder: this.order,
-      query: JSON.stringify(this.query),
+      where: JSON.stringify(this.where),
     };
 
     return await API.collection.getCollection({
@@ -104,7 +104,7 @@ export default class Collection extends Query {
     return await API.collection.removeMany({
       params: { collection: this.collection },
       data: {
-        query: this.query,
+        where: this.where,
       },
     });
   }
@@ -131,7 +131,7 @@ export default class Collection extends Query {
     return await API.collection.sum({
       params: { collection: this.collection },
       data: {
-        query: this.query,
+        where: this.where,
         field,
       },
     });

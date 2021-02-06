@@ -3,6 +3,7 @@ import User from './user';
 import Collection from './collection';
 import Document from './document';
 import Query from './query';
+import Where from './where';
 import Storage from './storage';
 
 /**
@@ -18,6 +19,7 @@ const BaaS = {
   Collection,
   Document,
   Query,
+  Where,
   Storage,
 };
 

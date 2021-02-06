@@ -1,3 +1,5 @@
+import Where from './where';
+
 /**
  * Query class
  * @memberof BaaS
@@ -8,20 +10,20 @@ export default class Query {
   protected pageNo: number;
   protected excluded: string[];
   protected order: number;
-  protected query: genericObject;
+  protected where: genericObject;
 
   constructor(
     pageSize = 20,
     pageNo = 1,
     excluded = [],
     order = -1,
-    query = {}
+    where = {}
   ) {
     this.pageSize = pageSize;
     this.pageNo = pageNo;
     this.excluded = excluded;
     this.order = order;
-    this.query = query;
+    this.where = where;
   }
 
   /**
@@ -51,7 +53,7 @@ export default class Query {
    */
   exclude(excluded: string | string[]): Query {
     if (typeof excluded === 'string') {
-      excluded = [excluded]
+      excluded = [excluded];
     }
 
     this.excluded = excluded;
@@ -68,40 +70,8 @@ export default class Query {
     return this;
   }
 
-  /**
-   * Compare
-   * @param key document field
-   * @param operator 
-   * @param value value to compare
-   */
-  compare(key: string, operator: string, value: unknown): Query {
-    let op = 'eq';
-    switch (operator) {
-    case '=':
-      op = 'eq';
-      break;
-    case '!=':
-      op = 'ne';
-      break;
-    case '<':
-      op = 'lt';
-      break;
-    case '<=':
-      op = 'lte';
-      break;
-    case '>':
-      op = 'gt';
-      break;
-    case '>=':
-      op = 'gte';
-      break;
-    default:
-      throw new Error('Invalid operator. Please provide the correct one.');
-    }
-
-    const { query } = this;
-    query[key] = Object.assign(query[key] || {}, { [`$${op}`]: value });
-    this.query = query;
+  setWhere(where: Where): Query {
+    this.where = where.where;
     return this;
   }
 }
