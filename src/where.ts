@@ -11,7 +11,7 @@ export default class Where {
    * @param operator
    * @param value value to compare
    */
-   compare(key: string, operator: string, value: unknown): Where {
+  compare(key: string, operator: string, value: unknown): Where {
     let op = 'eq';
     switch (operator) {
       case '=':
@@ -41,5 +41,35 @@ export default class Where {
     this.where = where;
 
     return this;
+  }
+
+  /**
+   * and where
+   * @param whereArray
+   */
+  static and(whereArray: Where[]): genericObject {
+    if (!whereArray || !whereArray.length) {
+      throw new Error('whereArray must not be empty');
+    }
+
+    const orWhere = { where: { $and: [] } };
+    orWhere.where.$and.push(...whereArray.map(where => where.where));
+
+    return orWhere;
+  }
+
+  /**
+   * or where
+   * @param whereArray
+   */
+  static or(whereArray: Where[]): genericObject {
+    if (!whereArray || !whereArray.length) {
+      throw new Error('whereArray must not be empty');
+    }
+
+    const orWhere = { where: { $or: [] } };
+    orWhere.where.$or.push(...whereArray.map(where => where.where));
+
+    return orWhere;
   }
 }
