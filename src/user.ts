@@ -16,11 +16,15 @@ export default class User {
    * @returns response from server
    */
   static async login({ username, password }: credential): Promise<loginInfo> {
-    const result = await API.user.login({ data: { username, password } });
-    const { token, user: _userInfo } = result;
-    STORAGE.set(constants.USER_INFO, _userInfo);
-    STORAGE.set(constants.AUTH_TOKEN, token);
-    return result;
+    try {
+      const result = await API.user.login({ data: { username, password } });
+      const { token, user: _userInfo } = result;
+      STORAGE.set(constants.USER_INFO, _userInfo);
+      STORAGE.set(constants.AUTH_TOKEN, token);
+      return result;
+    } catch (error) {
+      return null;
+    }
   }
 
   /**
