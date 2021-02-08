@@ -10,9 +10,10 @@ import Storage from './storage';
  * Define BaaS
  */
 const BaaS = {
-  init: ({ host = config.HOST, appid = '' } = {}): void => {
+  init: ({ host = config.HOST, appid = '', silentLogin = false, } = {}): void => {
     config.HOST = host;
     config.APP_ID = appid;
+    config.SILENT_LOGIN = silentLogin;
   },
   config,
   User,

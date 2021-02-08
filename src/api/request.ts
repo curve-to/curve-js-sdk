@@ -2,6 +2,7 @@ import axios from './interceptor';
 import config from '../config';
 import { getAuthToken } from '../common';
 import constants from '../constants';
+import User from '../user';
 
 /**
  * Convert API params
@@ -53,7 +54,7 @@ const send = ({ url, method, params, data }) => {
 };
 
 /**
- * Send requests to server side (via WeChat Mini Program)
+ * Send requests to server (via WeChat Mini Program)
  * @param url api endpoint
  * @param method method type
  * @param data data to pass as body
@@ -61,19 +62,25 @@ const send = ({ url, method, params, data }) => {
  * @returns response from server
  */
 const sendViaMiniProgram = ({ url, method, params, data }) => {
-  return new Promise((resolve, reject) => {
-    const token = getAuthToken();
-    const header = token
-      ? { appid: config.APP_ID, Authorization: token }
-      : { appid: config.APP_ID };
+  const token = getAuthToken();
+  const interceptor = config.SILENT_LOGIN
+    ? User.signInWithWeChat()
+    : Promise.resolve();
 
-    wx.request({
-      url: config.HOST + format(url, params),
-      method,
-      data,
-      header,
-      success: (res: genericObject) => resolve(res.data.data),
-      fail: (err: genericObject) => reject(err),
+  return interceptor.then(() => {
+    return new Promise((resolve, reject) => {
+      const header = token
+        ? { appid: config.APP_ID, Authorization: token }
+        : { appid: config.APP_ID };
+
+      wx.request({
+        url: config.HOST + format(url, params),
+        method,
+        data,
+        header,
+        success: (res: genericObject) => resolve(res.data.data),
+        fail: (err: genericObject) => reject(err),
+      });
     });
   });
 };

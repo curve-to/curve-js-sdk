@@ -64,7 +64,7 @@ export default class User {
    * @param data
    * @returns login session and credentials
    */
-  static async signInWithWeChat(userInfo: genericObject): Promise<unknown> {
+  static async signInWithWeChat(userInfo?: genericObject): Promise<unknown> {
     if (!WITH_MINI_PROGRAM) {
       console.error(
         'Unable to sign in with WeChat. Make sure your app is in WeChat environment.'
