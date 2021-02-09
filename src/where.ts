@@ -48,17 +48,8 @@ export default class Where {
    * @param whereArray
    */
   and(whereArray: Where[]): Where {
-    if (!whereArray || !whereArray.length) {
-      throw new Error('whereArray must not be empty');
-    }
-
-    const filter = whereArray.map(where => where.where);
-    const { where } = this;
     const $and = '$and';
-    where[$and] = where[$and] ? [...where[$and], ...filter] : filter;
-    this.where = where;
-
-    return this;
+    return getOrWhere($and, whereArray, this);
   }
 
   /**
@@ -66,16 +57,30 @@ export default class Where {
    * @param whereArray
    */
   or(whereArray: Where[]): Where {
-    if (!whereArray || !whereArray.length) {
-      throw new Error('whereArray must not be empty');
-    }
-
-    const filter = whereArray.map(where => where.where);
-    const { where } = this;
     const $or = '$or';
-    where[$or] = where[$or] ? [...where[$or], ...filter] : filter;
-    this.where = where;
-
-    return this;
+    return getOrWhere($or, whereArray, this);
   }
 }
+
+/**
+ * get or || where
+ * @param operator
+ * @param whereArray
+ * @param whereClass this
+ */
+const getOrWhere = (
+  operator: string,
+  whereArray: Where[],
+  whereClass: Where
+) => {
+  if (!whereArray || !whereArray.length) {
+    throw new Error('whereArray must not be empty');
+  }
+
+  const filter = whereArray.map(where => where.where);
+  const { where } = whereClass;
+  where[operator] = where[operator] ? [...where[operator], ...filter] : filter;
+  whereClass.where = where;
+
+  return whereClass;
+};
