@@ -47,29 +47,35 @@ export default class Where {
    * and where
    * @param whereArray
    */
-  static and(whereArray: Where[]): genericObject {
+  and(whereArray: Where[]): Where {
     if (!whereArray || !whereArray.length) {
       throw new Error('whereArray must not be empty');
     }
 
-    const orWhere = { where: { $and: [] } };
-    orWhere.where.$and.push(...whereArray.map(where => where.where));
+    const filter = whereArray.map(where => where.where);
+    const { where } = this;
+    const $and = '$and';
+    where[$and] = where[$and] ? [...where[$and], ...filter] : filter;
+    this.where = where;
 
-    return orWhere;
+    return this;
   }
 
   /**
    * or where
    * @param whereArray
    */
-  static or(whereArray: Where[]): genericObject {
+  or(whereArray: Where[]): Where {
     if (!whereArray || !whereArray.length) {
       throw new Error('whereArray must not be empty');
     }
 
-    const orWhere = { where: { $or: [] } };
-    orWhere.where.$or.push(...whereArray.map(where => where.where));
+    const filter = whereArray.map(where => where.where);
+    const { where } = this;
+    const $or = '$or';
+    where[$or] = where[$or] ? [...where[$or], ...filter] : filter;
+    this.where = where;
 
-    return orWhere;
+    return this;
   }
 }
