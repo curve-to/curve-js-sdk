@@ -64,10 +64,9 @@ const send = ({ url, method, params, data }) => {
  * @returns response from server
  */
 const sendViaMiniProgram = ({ url, method, params, data }) => {
-  const isTokenExpired = checkToken();
+  const isTokenExpired = checkToken(); // check if token is expired
 
-  let interceptor;
-
+  let interceptor: Promise<unknown>;
   if (config.SILENT_LOGIN && isTokenExpired && !silentLoginInProgress) {
     silentLoginInProgress = true;
     interceptor = User.signInWithWeChat();
