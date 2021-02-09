@@ -1,8 +1,10 @@
 import axios from './interceptor';
 import config from '../config';
-import { getAuthToken } from '../common';
+import { getAuthToken, checkToken } from '../common';
 import constants from '../constants';
 import User from '../user';
+
+let silentLoginInProgress = false;
 
 /**
  * Convert API params
@@ -62,13 +64,20 @@ const send = ({ url, method, params, data }) => {
  * @returns response from server
  */
 const sendViaMiniProgram = ({ url, method, params, data }) => {
-  const token = getAuthToken();
-  const interceptor = config.SILENT_LOGIN
-    ? User.signInWithWeChat()
-    : Promise.resolve();
+  const isTokenExpired = checkToken();
+
+  let interceptor;
+
+  if (config.SILENT_LOGIN && isTokenExpired && !silentLoginInProgress) {
+    silentLoginInProgress = true;
+    interceptor = User.signInWithWeChat();
+  } else {
+    interceptor = Promise.resolve();
+  }
 
   return interceptor.then(() => {
     return new Promise((resolve, reject) => {
+      const token = getAuthToken();
       const header = token
         ? { appid: config.APP_ID, Authorization: token }
         : { appid: config.APP_ID };

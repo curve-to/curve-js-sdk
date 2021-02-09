@@ -1,6 +1,7 @@
 export default {
   USER_INFO: 'user_info',
   AUTH_TOKEN: 'auth_token',
+  TOKEN_EXPIRED_AT: 'token_expired_at',
   METHOD_TYPE: {
     GET: 'GET',
     POST: 'POST',
@@ -27,6 +28,10 @@ export default {
       },
       updateWeChatUserInfo: {
         url: '/user/updateWeChatUserInfo',
+        method: 'POST',
+      },
+      checkToken: {
+        url: '/user/checkToken',
         method: 'POST',
       },
     },

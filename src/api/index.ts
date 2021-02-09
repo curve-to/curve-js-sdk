@@ -17,8 +17,8 @@ const createAPICalls = (): genericObject => {
       const apiMethod = method.toLowerCase();
 
       // params are what to be replaced in url string, e.g. /collection/:collection/
-      // data is what to be sent to the backend
-      final[key][subKey] = ({ params, data }) => {
+      // where data is what to be sent to the backend
+      final[key][subKey] = ({ params = {}, data = {} } = {}) => {
         return request[apiMethod](url, { data, params });
       };
     }

@@ -14,4 +14,5 @@ declare type genericObject = {
 declare type loginInfo = {
   token: string;
   user: genericObject;
+  expiredAt: genericObject;
 };

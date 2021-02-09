@@ -60,6 +60,13 @@ export default class User {
   }
 
   /**
+   * Check if token is expired
+   */
+  static async checkToken(): Promise<void> {
+    return await API.user.checkToken();
+  }
+
+  /**
    * static sign in with WeChat method
    * @param data
    * @returns login session and credentials
@@ -77,9 +84,10 @@ export default class User {
       STORAGE.set(constants.USER_INFO, _userInfo);
       return _userInfo;
     } else {
-      const { token, user: _userInfo } = await silentLogin();
+      const { token, user: _userInfo, expiredAt } = await silentLogin();
       STORAGE.set(constants.USER_INFO, _userInfo);
       STORAGE.set(constants.AUTH_TOKEN, token);
+      STORAGE.set(constants.TOKEN_EXPIRED_AT, expiredAt);
       return { token, user: _userInfo };
     }
   }
