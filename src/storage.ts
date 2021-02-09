@@ -28,6 +28,10 @@ export default class Storage {
   static set(key: string, value: unknown): void {
     return setStorage(key, value);
   }
+
+  static clear(key: string): void {
+    return clearStorage(key);
+  }
 }
 
 /**
@@ -52,4 +56,15 @@ const setStorage = (key: string, value: unknown) => {
   }
 
   return localStorage.setItem(STORAGE_KEY_PREFIX + key, _value);
+};
+
+/**
+ * Clear storage method
+ */
+const clearStorage = (key: string) => {
+  if (WITH_MINI_PROGRAM) {
+    return wx.removeStorageSync(STORAGE_KEY_PREFIX + key);
+  }
+
+  return localStorage.removeItem(STORAGE_KEY_PREFIX + key);
 };

@@ -91,6 +91,12 @@ export default class User {
       return { token, user: _userInfo };
     }
   }
+
+  static signOut() {
+    STORAGE.clear(constants.USER_INFO);
+    STORAGE.clear(constants.AUTH_TOKEN);
+    STORAGE.clear(constants.TOKEN_EXPIRED_AT);
+  }
 }
 
 /**
