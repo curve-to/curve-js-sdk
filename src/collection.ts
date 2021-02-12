@@ -77,6 +77,7 @@ export default class Collection extends Query {
       exclude: this.excluded.join(),
       sortOrder: this.order,
       where: JSON.stringify(this.where),
+      populated: JSON.stringify(this.populated),
     };
 
     return await API.collection.getCollection({

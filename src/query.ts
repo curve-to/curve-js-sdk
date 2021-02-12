@@ -11,19 +11,22 @@ export default class Query {
   protected excluded: string[];
   protected order: number;
   protected where: genericObject;
+  protected populated: genericObject;
 
   constructor(
     pageSize = 20,
     pageNo = 1,
     excluded = [],
     order = -1,
-    where = {}
+    where = {},
+    populated = []
   ) {
     this.pageSize = pageSize;
     this.pageNo = pageNo;
     this.excluded = excluded;
     this.order = order;
     this.where = where;
+    this.populated = populated;
   }
 
   /**
@@ -70,8 +73,44 @@ export default class Query {
     return this;
   }
 
+  /**
+   * Set where query
+   * @param where
+   */
   setWhere(where: Where): Query {
     this.where = where.where;
+    return this;
+  }
+
+  /**
+   * Populate(extend) a field in another collection
+   * @param field
+   * @param collection
+   */
+  populate(populated: populatedObject | populatedObject[]): Query {
+    console.log(Object.prototype.toString.call(populated) !== '[object Object]');
+    if (
+      Object.prototype.toString.call(populated) !== '[object Object]' &&
+      !Array.isArray(populated)
+    ) {
+      throw new Error('Param populated must be object type or array type.');
+    }
+
+    if (!Array.isArray(populated)) {
+      populated = [populated];
+    }
+
+    this.populated = populated.map(item => {
+      if (
+        typeof item.field !== 'string' ||
+        typeof item.collection !== 'string'
+      ) {
+        throw new Error('Both field and collection must be string type.');
+      }
+
+      return { path: item.field, model: item.collection };
+    });
+
     return this;
   }
 }
