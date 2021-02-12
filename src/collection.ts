@@ -62,7 +62,10 @@ export default class Collection extends Query {
         collection: this.collection,
         documentId,
       },
-      data: { exclude: this.excluded.join() },
+      data: {
+        exclude: this.excluded.join(),
+        populated: JSON.stringify(this.populated),
+      },
     });
   }
 
