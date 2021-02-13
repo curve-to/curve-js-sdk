@@ -88,7 +88,6 @@ export default class Query {
    * @param collection
    */
   populate(populated: populatedObject | populatedObject[]): Query {
-    console.log(Object.prototype.toString.call(populated) !== '[object Object]');
     if (
       Object.prototype.toString.call(populated) !== '[object Object]' &&
       !Array.isArray(populated)
