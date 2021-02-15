@@ -43,6 +43,17 @@ export default class Where {
     return this;
   }
 
+  contains(field: string, name: string): Where {
+    if (!field || !name) {
+      throw new Error('Both field and name must not be empty.');
+    }
+
+    const { where } = this;
+    where[field] = { $regex: name, $options: 'i' };
+    this.where = where;
+    return this;
+  }
+
   /**
    * and where
    * @param whereArray
