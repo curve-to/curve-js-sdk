@@ -12,6 +12,7 @@ export default class Query {
   protected order: number;
   protected where: genericObject;
   protected populated: genericObject;
+  protected distinct: string;
 
   constructor(
     pageSize = 20,
@@ -19,7 +20,8 @@ export default class Query {
     excluded = [],
     order = -1,
     where = {},
-    populated = []
+    populated = [],
+    distinct = ''
   ) {
     this.pageSize = pageSize;
     this.pageNo = pageNo;
@@ -27,6 +29,7 @@ export default class Query {
     this.order = order;
     this.where = where;
     this.populated = populated;
+    this.distinct = distinct;
   }
 
   /**
@@ -110,6 +113,19 @@ export default class Query {
       return { path: item.field, model: item.collection };
     });
 
+    return this;
+  }
+
+  /**
+   * Set distinct field name that outputs unique values
+   * @param field field name
+   */
+  setDistinct(field: string): Query {
+    if (typeof field !== 'string') {
+      throw new Error('Parameter field must be string type.');
+    }
+
+    this.distinct = field;
     return this;
   }
 }

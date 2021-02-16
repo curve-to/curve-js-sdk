@@ -90,6 +90,21 @@ export default class Collection extends Query {
   }
 
   /**
+   * Get distinct of a field from a collection
+   * @returns documents of a collection
+   */
+  async findDistinct(): Promise<void> {
+    const data = {
+      distinct: this.distinct,
+    };
+
+    return await API.collection.findDistinct({
+      params: { collection: this.collection },
+      data,
+    });
+  }
+
+  /**
    * Remove a document from a collection
    * @param documentId
    * @returns ok

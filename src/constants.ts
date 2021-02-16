@@ -40,6 +40,10 @@ export default {
         url: '/collection/:collection',
         method: 'GET',
       },
+      findDistinct: {
+        url: '/collection/:collection/distinct',
+        method: 'GET',
+      },
       count: {
         url: '/collection/:collection/count',
         method: 'GET',
