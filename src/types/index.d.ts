@@ -17,7 +17,7 @@ declare type loginInfo = {
   expiredAt: genericObject;
 };
 
-declare type populatedObject = {
+declare type populateObject = {
   field: string;
   collection: genericObject;
 };

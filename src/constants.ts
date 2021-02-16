@@ -36,12 +36,12 @@ export default {
       },
     },
     collection: {
-      getCollection: {
+      findMany: {
         url: '/collection/:collection',
         method: 'GET',
       },
       findDistinct: {
-        url: '/collection/:collection/distinct',
+        url: '/collection/:collection/findDistinct',
         method: 'GET',
       },
       count: {
@@ -62,7 +62,7 @@ export default {
         url: '/collection/:collection/createMany',
         method: 'POST',
       },
-      getDocument: {
+      find: {
         url: '/collection/:collection/:documentId',
         method: 'GET',
       },

@@ -57,14 +57,14 @@ export default class Collection extends Query {
    * @returns document details
    */
   async find(documentId: string): Promise<void> {
-    return await API.collection.getDocument({
+    return await API.collection.find({
       params: {
         collection: this.collection,
         documentId,
       },
       data: {
-        exclude: this.excluded.join(),
-        populated: JSON.stringify(this.populated),
+        exclude: this.exclude.join(),
+        populate: JSON.stringify(this.populate),
       },
     });
   }
@@ -77,13 +77,13 @@ export default class Collection extends Query {
     const data = {
       pageSize: this.pageSize,
       pageNo: this.pageNo,
-      exclude: this.excluded.join(),
+      exclude: this.exclude.join(),
       sortOrder: this.order,
       where: JSON.stringify(this.where),
-      populated: JSON.stringify(this.populated),
+      populate: JSON.stringify(this.populate),
     };
 
-    return await API.collection.getCollection({
+    return await API.collection.findMany({
       params: { collection: this.collection },
       data,
     });

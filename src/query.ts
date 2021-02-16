@@ -8,27 +8,27 @@ import Where from './where';
 export default class Query {
   protected pageSize: number;
   protected pageNo: number;
-  protected excluded: string[];
+  protected exclude: string[];
   protected order: number;
   protected where: genericObject;
-  protected populated: genericObject;
+  protected populate: genericObject;
   protected distinct: string;
 
   constructor(
     pageSize = 20,
     pageNo = 1,
-    excluded = [],
+    exclude = [],
     order = -1,
     where = {},
-    populated = [],
+    populate = [],
     distinct = ''
   ) {
     this.pageSize = pageSize;
     this.pageNo = pageNo;
-    this.excluded = excluded;
+    this.exclude = exclude;
     this.order = order;
     this.where = where;
-    this.populated = populated;
+    this.populate = populate;
     this.distinct = distinct;
   }
 
@@ -54,15 +54,15 @@ export default class Query {
 
   /**
    * Hide specific fields in server response
-   * @param excluded array of fields to be excluded
+   * @param exclude array of fields to be exclude
    * @returns this
    */
-  exclude(excluded: string | string[]): Query {
-    if (typeof excluded === 'string') {
-      excluded = [excluded];
+  setExclude(exclude: string | string[]): Query {
+    if (typeof exclude === 'string') {
+      exclude = [exclude];
     }
 
-    this.excluded = excluded;
+    this.exclude = exclude;
     return this;
   }
 
@@ -71,7 +71,7 @@ export default class Query {
    * @param order 1: ascending, -1: descending
    * @returns this
    */
-  sortOrder(order: number): Query {
+  setOrder(order: number): Query {
     this.order = order;
     return this;
   }
@@ -90,19 +90,19 @@ export default class Query {
    * @param field
    * @param collection
    */
-  populate(populated: populatedObject | populatedObject[]): Query {
+  setPopulate(populate: populateObject | populateObject[]): Query {
     if (
-      Object.prototype.toString.call(populated) !== '[object Object]' &&
-      !Array.isArray(populated)
+      Object.prototype.toString.call(populate) !== '[object Object]' &&
+      !Array.isArray(populate)
     ) {
-      throw new Error('Param populated must be object type or array type.');
+      throw new Error('Param populate must be object type or array type.');
     }
 
-    if (!Array.isArray(populated)) {
-      populated = [populated];
+    if (!Array.isArray(populate)) {
+      populate = [populate];
     }
 
-    this.populated = populated.map(item => {
+    this.populate = populate.map(item => {
       if (
         typeof item.field !== 'string' ||
         typeof item.collection !== 'string'
