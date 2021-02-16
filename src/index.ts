@@ -18,6 +18,10 @@ const BaaS = {
     config.HOST = host;
     config.APP_ID = appid;
     config.SILENT_LOGIN = silentLogin;
+
+    if (config.WITH_MINI_PROGRAM && !appid) {
+      throw new Error('You must provide appid when using this SDK in WeChat Mini Program.');
+    }
   },
   config,
   User,
