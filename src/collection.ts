@@ -161,4 +161,25 @@ export default class Collection extends Query {
       },
     });
   }
+
+  /**
+   * Get sum total of a specific field from date range
+   * @param field target field to sum
+   */
+  async random(size = 20): Promise<void> {
+    if (size == null) {
+      throw new Error('Size is required');
+    }
+
+    const data = {
+      exclude: this.exclude.join(),
+      where: JSON.stringify(this.where),
+      size,
+    };
+
+    return await API.collection.random({
+      params: { collection: this.collection },
+      data,
+    });
+  }
 }

@@ -52,6 +52,10 @@ export default {
         url: '/collection/:collection/sum',
         method: 'POST',
       },
+      random: {
+        url: '/collection/:collection/random',
+        method: 'GET',
+      },
 
       // document related
       create: {
