@@ -96,6 +96,7 @@ export default class Collection extends Query {
   async findDistinct(): Promise<void> {
     const data = {
       distinct: this.distinct,
+      where: JSON.stringify(this.where),
     };
 
     return await API.collection.findDistinct({
@@ -133,8 +134,13 @@ export default class Collection extends Query {
    * @returns count
    */
   async count(): Promise<void> {
+    const data = {
+      where: JSON.stringify(this.where),
+    };
+
     return await API.collection.count({
       params: { collection: this.collection },
+      data,
     });
   }
 
