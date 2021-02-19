@@ -166,9 +166,9 @@ export default class Collection extends Query {
    * Get sum total of a specific field from date range
    * @param field target field to sum
    */
-  async random(size = 20): Promise<void> {
-    if (size == null) {
-      throw new Error('Size is required');
+  async random(size: number): Promise<void> {
+    if (typeof size !== 'number') {
+      throw new Error('Size must be string type');
     }
 
     const data = {
