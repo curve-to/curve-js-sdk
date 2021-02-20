@@ -168,7 +168,7 @@ export default class Collection extends Query {
    */
   async random(size: number): Promise<void> {
     if (typeof size !== 'number') {
-      throw new Error('Size must be string type');
+      throw new Error('Size must be number type');
     }
 
     const data = {
