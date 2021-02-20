@@ -1,3 +1,5 @@
+import CurveError from './error';
+
 export default class Where {
   public where: genericObject;
 
@@ -33,7 +35,7 @@ export default class Where {
         op = 'gte';
         break;
       default:
-        throw new Error('Invalid operator. Please provide the correct one.');
+        throw new CurveError(600);
     }
 
     const { where } = this;
@@ -45,7 +47,7 @@ export default class Where {
 
   contains(field: string, name: string): Where {
     if (!field || !name) {
-      throw new Error('Both field and name must not be empty.');
+      throw new CurveError(601);
     }
 
     const { where } = this;
@@ -85,7 +87,7 @@ const getOrWhere = (
   whereClass: Where
 ) => {
   if (!whereArray || !whereArray.length) {
-    throw new Error('whereArray must not be empty');
+    throw new CurveError(601);
   }
 
   const filter = whereArray.map(where => where.where);

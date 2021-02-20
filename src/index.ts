@@ -5,6 +5,7 @@ import Document from './document';
 import Query from './query';
 import Where from './where';
 import Storage from './storage';
+import CurveError from './error';
 
 /**
  * Define BaaS
@@ -20,7 +21,10 @@ const BaaS = {
     config.SILENT_LOGIN = silentLogin;
 
     if (config.WITH_MINI_PROGRAM && !appid) {
-      throw new Error('You must provide appid when using this SDK in WeChat Mini Program.');
+      throw new CurveError(
+        601,
+        'You must provide an app id when using this SDK in WeChat Mini Program.'
+      );
     }
   },
   config,

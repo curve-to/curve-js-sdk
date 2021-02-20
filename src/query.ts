@@ -1,4 +1,5 @@
 import Where from './where';
+import CurveError from './error';
 
 /**
  * Query class
@@ -95,7 +96,7 @@ export default class Query {
       Object.prototype.toString.call(populate) !== '[object Object]' &&
       !Array.isArray(populate)
     ) {
-      throw new Error('Param populate must be object type or array type.');
+      throw new CurveError(600);
     }
 
     if (!Array.isArray(populate)) {
@@ -107,7 +108,7 @@ export default class Query {
         typeof item.field !== 'string' ||
         typeof item.collection !== 'string'
       ) {
-        throw new Error('Both field and collection must be string type.');
+        throw new CurveError(600);
       }
 
       return { path: item.field, model: item.collection };
@@ -122,7 +123,7 @@ export default class Query {
    */
   setDistinct(field: string): Query {
     if (typeof field !== 'string') {
-      throw new Error('Parameter field must be string type.');
+      throw new CurveError(600);
     }
 
     this.distinct = field;

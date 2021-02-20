@@ -3,6 +3,7 @@ import config from '../config';
 import { getAuthToken, checkToken } from '../common';
 import constants from '../constants';
 import User from '../user';
+import CurveError from '../error';
 
 let silentLoginInProgress = false;
 
@@ -65,7 +66,7 @@ const send = ({ url, method, params, data }) => {
  */
 const sendViaMiniProgram = ({ url, method, params, data }) => {
   if (config.WITH_MINI_PROGRAM && !config.APP_ID) {
-    throw new Error('App ID is not found.');
+    throw new CurveError(601, 'Required WeChat app id is missing.');
   }
 
   const isTokenExpired = checkToken(); // check if token is expired

@@ -1,6 +1,7 @@
 import Document from './document';
 import Query from './query';
 import API from './api';
+import CurveError from './error';
 
 /**
  * Collection class
@@ -42,7 +43,7 @@ export default class Collection extends Query {
    */
   async createMany(data: genericObject[]): Promise<void> {
     if (!Array.isArray(data)) {
-      throw new Error('Data must be Array type.');
+      throw new CurveError(600);
     }
 
     return await API.collection.createMany({
@@ -150,7 +151,7 @@ export default class Collection extends Query {
    */
   async sum(field: string): Promise<void> {
     if (!field) {
-      throw new Error('Field is required');
+      throw new CurveError(601);
     }
 
     return await API.collection.sum({
@@ -168,7 +169,7 @@ export default class Collection extends Query {
    */
   async random(size: number): Promise<void> {
     if (typeof size !== 'number') {
-      throw new Error('Size must be number type');
+      throw new CurveError(600);
     }
 
     const data = {

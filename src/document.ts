@@ -1,4 +1,5 @@
 import API from './api';
+import CurveError from './error';
 
 /**
  * Document class
@@ -65,7 +66,7 @@ export default class Document {
    */
   async update(): Promise<void> {
     if (!this.documentId) {
-      throw new Error('Document id is required.');
+      throw new CurveError(601);
     }
 
     return await API.collection.update({
