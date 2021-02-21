@@ -9,7 +9,6 @@ module.exports = {
     'bundle.min': './src/index.ts',
   },
   output: {
-    // filename: './index.js',
     path: __dirname + '/dist',
     filename: '[name].js',
     library: 'curveJsSdk',
