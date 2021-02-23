@@ -4,6 +4,9 @@
   "description": "A JS SDK companion for curve",
   "main": "dist/bundle.min.js",
   "types": "dist/types/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "webpack --config webpack.config.js --watch",
     "build": "webpack --config webpack.config.js",
