@@ -1,3 +1,9 @@
 node_modules
 example
 package-lock.json
+src
+.babelrc
+.eslintignore
+.eslintrc.json
+.gitignore
+webpack.config.js

@@ -3,7 +3,7 @@
   "version": "1.2.2",
   "description": "A JS SDK companion for curve",
   "main": "dist/bundle.min.js",
-  "types": "dist/index.d.ts",
+  "types": "dist/types/index.d.ts",
   "scripts": {
     "dev": "webpack --config webpack.config.js --watch",
     "build": "webpack --config webpack.config.js",

@@ -6,8 +6,7 @@
     "sourceMap": true,
     "outDir": "dist",
     "declaration": true,
-    "declarationDir": "dist",
-    "typeRoots": ["./types"]
+    "declarationDir": "dist/types"
   },
   "lib": ["es2015"]
 }
