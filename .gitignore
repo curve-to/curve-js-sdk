@@ -2,3 +2,4 @@ node_modules
 example
 package-lock.json
 .eslintcache
+dist
