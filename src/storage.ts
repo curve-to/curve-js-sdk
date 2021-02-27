@@ -3,38 +3,6 @@ import { WITH_MINI_PROGRAM } from './config';
 const STORAGE_KEY_PREFIX = '_curve_';
 
 /**
- * Storage class
- * @memberof BaaS
- * @public
- */
-export default class Storage {
-  /**
-   * static get method
-   * @param key
-   */
-  static get(key: string): unknown {
-    try {
-      return JSON.parse(getStorage(key)).value;
-    } catch {
-      return null;
-    }
-  }
-
-  /**
-   * static set method
-   * @param key
-   * @param value
-   */
-  static set(key: string, value: unknown): void {
-    return setStorage(key, value);
-  }
-
-  static clear(key: string): void {
-    return clearStorage(key);
-  }
-}
-
-/**
  * Get storage method
  */
 const getStorage = (key: string) => {
@@ -68,3 +36,35 @@ const clearStorage = (key: string) => {
 
   return localStorage.removeItem(STORAGE_KEY_PREFIX + key);
 };
+
+/**
+ * Storage class
+ * @memberof BaaS
+ * @public
+ */
+export default class Storage {
+  /**
+   * static get method
+   * @param key
+   */
+  static get(key: string): unknown {
+    try {
+      return JSON.parse(getStorage(key)).value;
+    } catch {
+      return null;
+    }
+  }
+
+  /**
+   * static set method
+   * @param key
+   * @param value
+   */
+  static set(key: string, value: unknown): void {
+    return setStorage(key, value);
+  }
+
+  static clear(key: string): void {
+    return clearStorage(key);
+  }
+}

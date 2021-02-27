@@ -4,8 +4,8 @@
  * @public
  */
 export default class CurveError extends Error {
-  public code: number;
-  public message: string;
+  public readonly code: number;
+  public readonly message: string;
 
   constructor(code: number, message?: string) {
     super(message);

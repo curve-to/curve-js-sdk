@@ -9,7 +9,7 @@ import CurveError from './error';
  * @public
  */
 export default class Collection extends Query {
-  private collection: string;
+  private readonly collection: string;
 
   constructor(collection: string) {
     super();

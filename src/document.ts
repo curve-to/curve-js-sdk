@@ -7,8 +7,8 @@ import CurveError from './error';
  * @public
  */
 export default class Document {
-  private collection: string;
-  private documentId: string;
+  private readonly collection: string;
+  private readonly documentId: string;
   private document: genericObject;
   private where: genericObject;
 
