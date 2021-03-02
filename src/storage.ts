@@ -1,8 +1,15 @@
-import { LocalStorage } from 'node-localstorage';
 import { WITH_MINI_PROGRAM, WITH_NODE } from './config';
 
-const ls = WITH_NODE ? new LocalStorage('./node-local-storage') : localStorage;
 const STORAGE_KEY_PREFIX = '_curve_';
+
+let ls = null;
+if (WITH_NODE) {
+  import('node-localstorage').then(lsModule => {
+    ls = new lsModule.LocalStorage('./node-local-storage');
+  });
+} else {
+  ls = localStorage;
+}
 
 /**
  * Get storage method
