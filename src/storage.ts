@@ -1,5 +1,7 @@
-import { WITH_MINI_PROGRAM } from './config';
+import { LocalStorage } from 'node-localstorage';
+import { WITH_MINI_PROGRAM, WITH_NODE } from './config';
 
+const ls = WITH_NODE ? new LocalStorage('./node-local-storage') : localStorage;
 const STORAGE_KEY_PREFIX = '_curve_';
 
 /**
@@ -10,7 +12,7 @@ const getStorage = (key: string) => {
     return wx.getStorageSync(STORAGE_KEY_PREFIX + key);
   }
 
-  return localStorage.getItem(STORAGE_KEY_PREFIX + key);
+  return ls.getItem(STORAGE_KEY_PREFIX + key);
 };
 
 /**
@@ -23,7 +25,7 @@ const setStorage = (key: string, value: unknown) => {
     return wx.setStorageSync(STORAGE_KEY_PREFIX + key, _value);
   }
 
-  return localStorage.setItem(STORAGE_KEY_PREFIX + key, _value);
+  return ls.setItem(STORAGE_KEY_PREFIX + key, _value);
 };
 
 /**
@@ -34,7 +36,7 @@ const clearStorage = (key: string) => {
     return wx.removeStorageSync(STORAGE_KEY_PREFIX + key);
   }
 
-  return localStorage.removeItem(STORAGE_KEY_PREFIX + key);
+  return ls.removeItem(STORAGE_KEY_PREFIX + key);
 };
 
 /**
