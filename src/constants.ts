@@ -2,6 +2,8 @@ export default {
   USER_INFO: 'user_info',
   AUTH_TOKEN: 'auth_token',
   TOKEN_EXPIRED_AT: 'token_expired_at',
+  NODE_ROOT_PATH: '__baseDir',
+  BaaS: 'BaaS',
   METHOD_TYPE: {
     GET: 'GET',
     POST: 'POST',

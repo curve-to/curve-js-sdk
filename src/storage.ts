@@ -1,11 +1,15 @@
 import { WITH_MINI_PROGRAM, WITH_NODE } from './config';
+import constants from './constants';
 
 const STORAGE_KEY_PREFIX = '_curve_';
 
 let ls = null;
 if (WITH_NODE) {
   import('node-localstorage').then(lsModule => {
-    ls = new lsModule.LocalStorage('./node-local-storage');
+    const appRootPath =
+      global[constants.NODE_ROOT_PATH] + '/node-local-storage';
+
+    ls = new lsModule.LocalStorage(appRootPath);
   });
 } else {
   ls = localStorage;

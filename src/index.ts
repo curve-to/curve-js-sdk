@@ -6,6 +6,8 @@ import Query from './query';
 import Where from './where';
 import Storage from './storage';
 import CurveError from './error';
+import constants from './constants';
+import * as appRoot from 'app-root-path';
 
 /**
  * Define BaaS
@@ -41,6 +43,18 @@ const BaaS = {
  */
 if (config.WITH_MINI_PROGRAM) {
   wx.BaaS = BaaS;
+}
+
+/**
+ * Define path __baseDir to help node local storage to find project's root directory
+ * In a node application, you must import this SDK in app.js
+ * and should not import in any sub folders
+ * Otherwise node local storage will create another storage file in where you import the SDK
+ * If you want to use BaaS in other files, use global['BaaS']
+ */
+if (config.WITH_NODE) {
+  global[constants.NODE_ROOT_PATH] = appRoot.toString();
+  global[constants.BaaS] = BaaS;
 }
 
 export default BaaS;
