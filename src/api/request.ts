@@ -91,8 +91,16 @@ const sendViaMiniProgram = ({ url, method, params, data }) => {
         method,
         data,
         header,
-        success: (res: genericObject) => resolve(res.data.data),
-        fail: (err: genericObject) => reject(err),
+        success: (res: genericObject) => {
+          if (res.data.code === 200) {
+            resolve(res.data.data);
+          } else {
+            reject(res.data);
+          }
+        },
+        fail: (err: genericObject) => {
+          reject(err);
+        },
       });
     });
   });
