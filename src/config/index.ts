@@ -5,7 +5,8 @@ export const WITH_MINI_PROGRAM = Boolean(
 
 // Auto detect if current environment is node
 export const WITH_NODE =
-  typeof localStorage === 'undefined' || localStorage === null;
+  !WITH_MINI_PROGRAM &&
+  (typeof localStorage === 'undefined' || localStorage === null);
 
 export default {
   HOST: 'http://localhost:4000', // Dest url for curve

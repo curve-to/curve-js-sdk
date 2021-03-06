@@ -7,7 +7,6 @@ import Where from './where';
 import Storage from './storage';
 import CurveError from './error';
 import constants from './constants';
-import * as appRoot from 'app-root-path';
 
 /**
  * Define BaaS
@@ -53,8 +52,10 @@ if (config.WITH_MINI_PROGRAM) {
  * If you want to use BaaS in other files, use global['BaaS']
  */
 if (config.WITH_NODE) {
-  global[constants.NODE_ROOT_PATH] = appRoot.toString();
-  global[constants.BaaS] = BaaS;
+  import('app-root-path').then(appRoot => {
+    global[constants.NODE_ROOT_PATH] = appRoot.toString();
+    global[constants.BaaS] = BaaS;
+  });
 }
 
 export default BaaS;

@@ -1,10 +1,9 @@
 const TerserPlugin = require('terser-webpack-plugin');
-const nodeExternals = require('webpack-node-externals');
+// const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
   mode: 'production',
   target: 'node',
-  entry: './src/index.ts',
   entry: {
     bundle: './src/index.ts',
     'bundle.min': './src/index.ts',
@@ -46,5 +45,5 @@ module.exports = {
       },
     ],
   },
-  externals: [nodeExternals()],
+  // externals: [nodeExternals()],
 };
