@@ -15,6 +15,9 @@ module.exports = {
     libraryTarget: 'umd',
     globalObject: 'this',
   },
+  stats: {
+    warnings: false,
+  },
   resolve: {
     extensions: ['.js', '.ts'],
   },
