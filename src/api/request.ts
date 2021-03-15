@@ -92,7 +92,7 @@ const sendViaMiniProgram = ({ url, method, params, data }) => {
         data,
         header,
         success: (res: genericObject) => {
-          if (res.data.code === 200) {
+          if (res.data.code.toString().startsWith('20')) {
             resolve(res.data.data);
           } else {
             reject(res.data);
