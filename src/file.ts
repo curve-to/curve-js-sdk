@@ -1,4 +1,3 @@
-import Document from './document';
 import Query from './query';
 import API from './api';
 import CurveError from './error';
