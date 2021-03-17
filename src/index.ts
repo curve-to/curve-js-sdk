@@ -3,6 +3,7 @@ import User from './user';
 import Collection from './collection';
 import Document from './document';
 import Query from './query';
+import File from './file';
 import Where from './where';
 import Storage from './storage';
 import CurveError from './error';
@@ -32,6 +33,7 @@ const BaaS = {
   User,
   Collection,
   Document,
+  File,
   Query,
   Where,
   Storage,

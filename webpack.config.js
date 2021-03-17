@@ -1,9 +1,8 @@
 const TerserPlugin = require('terser-webpack-plugin');
-// const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
   mode: 'production',
-  target: 'node',
+  // target: 'node',
   entry: {
     bundle: './src/index.ts',
     'bundle.min': './src/index.ts',
@@ -14,6 +13,9 @@ module.exports = {
     library: 'curveJsSdk',
     libraryTarget: 'umd',
     globalObject: 'this',
+  },
+  node: {
+    fs: "empty",
   },
   stats: {
     warnings: false,
@@ -48,5 +50,4 @@ module.exports = {
       },
     ],
   },
-  // externals: [nodeExternals()],
 };

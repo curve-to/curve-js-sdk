@@ -89,5 +89,27 @@ export default {
         method: 'DELETE',
       },
     },
+    file: {
+      upload: {
+        url: '/file/upload',
+        method: 'POST',
+      },
+      count: {
+        url: '/file/count',
+        method: 'GET',
+      },
+      findMany: {
+        url: '/file/findMany',
+        method: 'GET',
+      },
+      find: {
+        url: '/file/:fileId',
+        method: 'GET',
+      },
+      remove: {
+        url: '/file/:fileId',
+        method: 'DELETE',
+      },
+    },
   },
 };
