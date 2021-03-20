@@ -6,7 +6,7 @@
     "sourceMap": true,
     "outDir": "dist",
     "declaration": true,
-    "declarationDir": "core/types",
+    "declarationDir": "dist/types",
     "types": [
       "node"
     ]

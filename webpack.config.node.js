@@ -7,7 +7,7 @@ module.exports = {
     'index': './src/index.ts',
   },
   output: {
-    path: __dirname + '/core/node',
+    path: __dirname + '/dist/node',
     filename: '[name].js',
     library: 'curveJsSdk',
     libraryTarget: 'umd',
