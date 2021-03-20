@@ -22,6 +22,8 @@ export default class CurveError extends Error {
         return 'Required parameter is missing';
       case 602:
         return 'Connection refused';
+      case 603:
+        return 'Cloud functions cannot be invoked in Node environment';
       default:
         return 'Unknown error';
     }

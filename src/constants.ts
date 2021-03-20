@@ -111,5 +111,11 @@ export default {
         method: 'DELETE',
       },
     },
+    cloudFunction: {
+      invoke: {
+        url: '/cloud/function/:name',
+        method: 'POST',
+      },
+    },
   },
 };

@@ -6,6 +6,7 @@ import Query from './query';
 import File from './file';
 import Where from './where';
 import Storage from './storage';
+import CloudFunction from './cloud-function';
 import CurveError from './error';
 import constants from './constants';
 
@@ -34,6 +35,7 @@ const BaaS = {
   Collection,
   Document,
   File,
+  CloudFunction,
   Query,
   Where,
   Storage,
