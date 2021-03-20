@@ -2,3 +2,4 @@ node_modules
 example
 .eslintcache
 dist
+core

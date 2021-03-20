@@ -3,11 +3,10 @@ const TerserPlugin = require('terser-webpack-plugin');
 module.exports = {
   mode: 'production',
   entry: {
-    // bundle: './src/index.ts',
-    'bundle.min': './src/index.ts',
+    'index': './src/index.ts',
   },
   output: {
-    path: __dirname + '/dist',
+    path: __dirname + '/core',
     filename: '[name].js',
     library: 'curveJsSdk',
     libraryTarget: 'umd',
@@ -26,7 +25,7 @@ module.exports = {
     minimize: true,
     minimizer: [
       new TerserPlugin({
-        test: /\.min\.js$/i,
+        test: /\.js$/i,
       }),
     ],
   },
