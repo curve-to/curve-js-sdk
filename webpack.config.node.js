@@ -1,3 +1,4 @@
+/* eslint-disable */
 const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
@@ -7,15 +8,13 @@ module.exports = {
     'bundle.min': './src/index.ts',
   },
   output: {
-    path: __dirname + '/dist',
+    path: __dirname + '/dist/node',
     filename: '[name].js',
     library: 'curveJsSdk',
     libraryTarget: 'umd',
     globalObject: 'this',
   },
-  node: {
-    fs: "empty",
-  },
+  target: 'node',
   stats: {
     warnings: false,
   },
