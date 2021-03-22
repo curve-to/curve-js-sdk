@@ -46,9 +46,11 @@ export default class User {
   static async login({ username, password }: credential): Promise<loginInfo> {
     try {
       const result = await API.user.login({ data: { username, password } });
-      const { token, user: _userInfo } = result;
+      const { token, user: _userInfo, expiredAt } = result;
+      console.log('result - ', result);
       STORAGE.set(constants.USER_INFO, _userInfo);
       STORAGE.set(constants.AUTH_TOKEN, token);
+      STORAGE.set(constants.TOKEN_EXPIRED_AT, expiredAt);
       return result;
     } catch (error) {
       return null;
