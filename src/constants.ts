@@ -32,10 +32,6 @@ export default {
         url: '/user/updateWeChatUserInfo',
         method: 'POST',
       },
-      checkToken: {
-        url: '/user/checkToken',
-        method: 'POST',
-      },
     },
     collection: {
       findMany: {
@@ -115,6 +111,22 @@ export default {
       invoke: {
         url: '/cloud/function/:name',
         method: 'POST',
+      },
+      find: {
+        url: '/cloud/function/:name',
+        method: 'GET',
+      },
+      create: {
+        url: '/cloud/function/create',
+        method: 'POST',
+      },
+      update: {
+        url: '/cloud/function/:name',
+        method: 'PUT',
+      },
+      remove: {
+        url: '/cloud/function/:name',
+        method: 'DELETE',
       },
     },
   },

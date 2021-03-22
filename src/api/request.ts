@@ -1,6 +1,6 @@
 import axios from './interceptor';
 import config from '../config';
-import { getAuthToken, checkToken } from '../common';
+import { getAuthToken, validateToken } from '../common';
 import constants from '../constants';
 import User from '../user';
 import CurveError from '../error';
@@ -69,7 +69,7 @@ const sendViaMiniProgram = ({ url, method, params, data }) => {
     throw new CurveError(601, 'Required WeChat app id is missing.');
   }
 
-  const isTokenExpired = checkToken(); // check if token is expired
+  const isTokenExpired = validateToken(); // check if token is expired
 
   let interceptor: Promise<unknown>;
   if (config.SILENT_LOGIN && isTokenExpired && !silentLoginInProgress) {

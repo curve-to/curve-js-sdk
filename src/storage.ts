@@ -4,6 +4,7 @@ import constants from './constants';
 const STORAGE_KEY_PREFIX = '_curve_';
 
 let ls = null;
+
 if (WITH_NODE) {
   import('node-localstorage').then(lsModule => {
     const appRootPath =

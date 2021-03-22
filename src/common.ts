@@ -12,9 +12,9 @@ export const getAuthToken = (): unknown => {
 };
 
 /**
- * Check if token is expired
+ * Check if token is valid
  */
-export const checkToken = (): boolean => {
+export const validateToken = (): boolean => {
   const tokenExpiredAt = STORAGE.get(constants.TOKEN_EXPIRED_AT);
-  return Date.now() / 1000 >= (tokenExpiredAt || 0);
+  return Date.now() / 1000 < (tokenExpiredAt || 0);
 };
