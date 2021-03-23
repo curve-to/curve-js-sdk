@@ -109,7 +109,6 @@ export default class Collection extends Query {
   /**
    * Remove a document from a collection
    * @param documentId
-   * @returns ok
    */
   async remove(documentId: string): Promise<void> {
     return await API.collection.remove({
@@ -119,7 +118,6 @@ export default class Collection extends Query {
 
   /**
    * Remove multiple documents from a collection
-   * @returns ok
    */
   async removeMany(): Promise<void> {
     return await API.collection.removeMany({

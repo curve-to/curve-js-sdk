@@ -5,8 +5,6 @@ import constants from '../constants';
 import User from '../user';
 import CurveError from '../error';
 
-let silentLoginInProgress = false;
-
 /**
  * Convert API params
  * @private
@@ -69,15 +67,14 @@ const sendViaMiniProgram = ({ url, method, params, data }) => {
     throw new CurveError(601, 'Required WeChat app id is missing.');
   }
 
-  const isTokenExpired = validateToken(); // check if token is expired
+  const tokenIsValid = validateToken(); // check if token is valid
 
-  let interceptor: Promise<unknown>;
-  if (config.SILENT_LOGIN && isTokenExpired && !silentLoginInProgress) {
-    silentLoginInProgress = true;
-    interceptor = User.signInWithWeChat();
-  } else {
-    interceptor = Promise.resolve();
-  }
+  const interceptor =
+    config.SILENT_LOGIN &&
+    !tokenIsValid &&
+    url !== constants.ROUTES.user.signInWithWeChat.url
+      ? User.signInWithWeChat()
+      : Promise.resolve();
 
   return interceptor.then(() => {
     return new Promise((resolve, reject) => {
