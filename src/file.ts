@@ -11,7 +11,7 @@ export default class File extends Query {
   /**
    * Upload single file
    * @param file file object
-   * @param useRandomFileName if true, use random file name; else use its own file name
+   * @param useRandomFileName if set to true, use random file name; else use its file name
    * @returns file details
    */
   async upload(file: Blob, { useRandomFileName = true } = {}): Promise<void> {
