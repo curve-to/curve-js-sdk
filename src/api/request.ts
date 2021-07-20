@@ -10,7 +10,7 @@ import CurveError from '../error';
  * @private
  * @param url API URL
  * @param params API params
- * @returns API URL formatted
+ * @returns formatted API URL
  */
 const format = (url: string, params: genericObject) => {
   params = params || {};
